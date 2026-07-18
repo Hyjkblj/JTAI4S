@@ -3,10 +3,10 @@
   "bundle_id": "BND-DEMO-002",
   "meeting": {
     "meeting_id": "MTG-DEMO-002",
-    "title": "AI实验研发加速器 P0-04 结构化抽取演示会议",
+    "title": "AI实验研发加速器 P0-06 飞书妙记适配演示",
     "started_at": "2026-07-18T10:00:00+08:00",
     "ended_at": "2026-07-18T10:08:00+08:00",
-    "source_system": "imported_fixture"
+    "source_system": "feishu_minutes"
   },
   "experiment": {
     "experiment_id": "EXP-DEMO-002",
@@ -125,10 +125,10 @@
         "description": "主实验"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-001",
-        "speaker_id": "USER-DEMO-MANAGER",
+        "speaker_id": "SPEAKER-01",
         "start_ms": 10000,
         "end_ms": 28000,
         "quote": "实验编号 EXP-DEMO-002，本轮做合成条件复核；不是八十度，主实验改成七十五度，八十度只保留小样对照。",
@@ -137,7 +137,7 @@
       },
       "confidence": 0.92,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-001:parameter_change:has_reaction_temperature:1",
       "flags": [],
       "relationships": [],
@@ -152,7 +152,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -176,10 +176,10 @@
         "description": "小样对照"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-001",
-        "speaker_id": "USER-DEMO-MANAGER",
+        "speaker_id": "SPEAKER-01",
         "start_ms": 10000,
         "end_ms": 28000,
         "quote": "实验编号 EXP-DEMO-002，本轮做合成条件复核；不是八十度，主实验改成七十五度，八十度只保留小样对照。",
@@ -188,7 +188,7 @@
       },
       "confidence": 0.9,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-001:parameter:has_reaction_temperature:2",
       "flags": [],
       "relationships": [],
@@ -203,7 +203,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -228,10 +228,10 @@
         "description": "流动相体积比"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-002",
-        "speaker_id": "USER-DEMO-EXPERIMENT",
+        "speaker_id": "SPEAKER-02",
         "start_ms": 30000,
         "end_ms": 42000,
         "quote": "流动相乙腈从百分之三十降到百分之二十五，按体积比记录。",
@@ -240,7 +240,7 @@
       },
       "confidence": 0.9,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-002:parameter_change:has_acetonitrile_ratio:3",
       "flags": [],
       "relationships": [],
@@ -255,7 +255,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -280,10 +280,10 @@
         "description": "候选搅拌条件"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-003",
-        "speaker_id": "USER-DEMO-ALGORITHM",
+        "speaker_id": "SPEAKER-03",
         "start_ms": 44000,
         "end_ms": 56000,
         "quote": "我建议把搅拌速度提到 600 转，但这只是建议，今天先不定。",
@@ -292,7 +292,7 @@
       },
       "confidence": 0.82,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-003:proposal:proposes_parameter_change:4",
       "flags": [
         "unresolved_decision"
@@ -309,7 +309,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -333,10 +333,10 @@
         "description": "本轮执行方案"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-004",
-        "speaker_id": "USER-DEMO-MANAGER",
+        "speaker_id": "SPEAKER-01",
         "start_ms": 58000,
         "end_ms": 72000,
         "quote": "最终不要直接用 600 转，先按 500 转每分钟执行，结果复盘后再调。",
@@ -345,7 +345,7 @@
       },
       "confidence": 0.88,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-004:decision:sets_final_stirring_speed:5",
       "flags": [],
       "relationships": [],
@@ -360,7 +360,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -384,10 +384,10 @@
         "description": "温度风险"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-005",
-        "speaker_id": "USER-DEMO-EXPERIMENT",
+        "speaker_id": "SPEAKER-02",
         "start_ms": 74000,
         "end_ms": 90000,
         "quote": "90 摄氏度以上可能出现降解，这个作为高风险提示写进审阅台。",
@@ -396,7 +396,7 @@
       },
       "confidence": 0.86,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-005:risk:warns_degradation_risk:6",
       "flags": [
         "uncertain_causality",
@@ -414,7 +414,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -436,10 +436,10 @@
         "description": "跨实验失败案例复用"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-006",
-        "speaker_id": "USER-DEMO-MATERIALS",
+        "speaker_id": "SPEAKER-04",
         "start_ms": 92000,
         "end_ms": 106000,
         "quote": "历史失败案例 EXP-HIST-009 在高温条件下出现过相似杂质峰，建议检索复用。",
@@ -448,7 +448,7 @@
       },
       "confidence": 0.84,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-006:insight:references_similar_experiment:7",
       "flags": [
         "possible_duplicate_failure"
@@ -465,7 +465,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -488,10 +488,10 @@
         "description": "会后审阅任务"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-007",
-        "speaker_id": "USER-DEMO-MANAGER",
+        "speaker_id": "SPEAKER-01",
         "start_ms": 108000,
         "end_ms": 126000,
         "quote": "会后今天下午五点前复核截止日期，飞书 ASR 可能把 2026 识别成 2020。",
@@ -500,7 +500,7 @@
       },
       "confidence": 0.8,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-007:task:assigns_action:8",
       "flags": [
         "relative_time",
@@ -518,7 +518,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     },
     {
       "schema_version": "1.0.0",
@@ -539,10 +539,10 @@
         "description": "晶型筛选方案评审"
       },
       "source": {
-        "system": "imported_fixture",
+        "system": "feishu_minutes",
         "meeting_id": "MTG-DEMO-002",
         "utterance_id": "UTT-DEMO-002-008",
-        "speaker_id": "USER-DEMO-ALGORITHM",
+        "speaker_id": "SPEAKER-03",
         "start_ms": 128000,
         "end_ms": 144000,
         "quote": "关于晶型筛选 B 方案这次没有形成结论，下次评审再决定。",
@@ -551,7 +551,7 @@
       },
       "confidence": 0.78,
       "verification_status": "IN_REVIEW",
-      "data_origin": "synthetic",
+      "data_origin": "deidentified",
       "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-008:controversy:records_unresolved_option:9",
       "flags": [
         "unresolved_decision"
@@ -568,7 +568,7 @@
         "reviewed_at": null,
         "notes": "Rule-based draft. Human review is required before publication or writeback."
       },
-      "created_at": "2026-07-18T12:00:00+08:00"
+      "created_at": "2026-07-18T12:05:00+08:00"
     }
   ]
 }

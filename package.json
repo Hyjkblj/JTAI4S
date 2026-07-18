@@ -5,11 +5,14 @@
   "description": "Evidence-first AI research workflow accelerator prototype.",
   "type": "module",
   "scripts": {
-    "extract:demo": "node scripts/extract-meeting-claims.mjs --input evaluation/demo-meeting-transcript.json --output evaluation/demo-extraction-bundle.generated.json",
+    "extract:demo": "node scripts/extract-meeting-claims.mjs --input evaluation/demo-meeting-transcript.normalized-from-minutes.json --output evaluation/demo-extraction-bundle.generated.json",
     "generate:golden-set": "node scripts/generate-golden-set.mjs",
+    "demo:e2e": "npm run normalize:minutes && npm run extract:demo && npm run plan:writeback && npm run report:demo",
+    "normalize:minutes": "node scripts/normalize-feishu-minutes.mjs --input fixtures/feishu/minutes-detail-transcript.sample.redacted.json --output evaluation/demo-meeting-transcript.normalized-from-minutes.json --meeting-id MTG-DEMO-002 --experiment-id EXP-DEMO-002 --project-id PROJECT-XTALLOOP-DEMO --started-at 2026-07-18T10:00:00+08:00 --ended-at 2026-07-18T10:08:00+08:00",
     "plan:writeback": "node scripts/plan-feishu-writeback.mjs --input evaluation/demo-extraction-bundle.generated.json --output evaluation/demo-writeback-plan.generated.json",
+    "report:demo": "node scripts/build-demo-report.mjs --transcript evaluation/demo-meeting-transcript.normalized-from-minutes.json --bundle evaluation/demo-extraction-bundle.generated.json --plan evaluation/demo-writeback-plan.generated.json --output evaluation/demo-e2e-report.md",
     "validate:artifacts": "node scripts/validate-artifacts.mjs",
-    "test": "npm run generate:golden-set && npm run extract:demo && npm run plan:writeback && npm run validate:artifacts"
+    "test": "npm run generate:golden-set && npm run demo:e2e && npm run validate:artifacts"
   },
   "devDependencies": {
     "ajv": "8.17.1",

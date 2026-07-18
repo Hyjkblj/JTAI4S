@@ -303,19 +303,19 @@
         "source_bundle_id": "BND-DEMO-002",
         "speaker_map": [
           {
-            "original": "USER-DEMO-MANAGER",
+            "original": "SPEAKER-01",
             "redacted": "SPEAKER-01"
           },
           {
-            "original": "USER-DEMO-EXPERIMENT",
+            "original": "SPEAKER-02",
             "redacted": "SPEAKER-02"
           },
           {
-            "original": "USER-DEMO-ALGORITHM",
+            "original": "SPEAKER-03",
             "redacted": "SPEAKER-03"
           },
           {
-            "original": "USER-DEMO-MATERIALS",
+            "original": "SPEAKER-04",
             "redacted": "SPEAKER-04"
           }
         ]

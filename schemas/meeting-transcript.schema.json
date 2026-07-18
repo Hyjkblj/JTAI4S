@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xtalloop.local/schemas/meeting-transcript.schema.json",
+  "title": "XtalLoop Normalized Meeting Transcript",
+  "description": "A deidentified, extractor-ready transcript normalized from Feishu Minutes, Note transcript, or imported fixtures.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "data_origin",
+    "extracted_at",
+    "meeting",
+    "experiment",
+    "utterances"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "data_origin": {
+      "enum": [
+        "synthetic",
+        "deidentified",
+        "real_authorized"
+      ]
+    },
+    "extracted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "meeting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meeting_id",
+        "title",
+        "started_at",
+        "ended_at",
+        "source_system"
+      ],
+      "properties": {
+        "meeting_id": {
+          "type": "string",
+          "pattern": "^MTG-[A-Z0-9-]{4,}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_system": {
+          "enum": [
+            "feishu_vc",
+            "feishu_minutes",
+            "imported_fixture"
+          ]
+        }
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "experiment_id",
+        "project_id",
+        "experiment_type",
+        "status"
+      ],
+      "properties": {
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[A-Z0-9-]{4,}$"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "experiment_type": {
+          "enum": [
+            "synthesis",
+            "crystal_screening",
+            "activity_assay",
+            "other"
+          ]
+        },
+        "status": {
+          "enum": [
+            "PLANNING",
+            "READY",
+            "RUNNING",
+            "REVIEW",
+            "COMPLETED",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "utterances": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "utterance_id",
+          "speaker_id",
+          "speaker_role",
+          "start_ms",
+          "end_ms",
+          "text"
+        ],
+        "properties": {
+          "utterance_id": {
+            "type": "string",
+            "pattern": "^UTT-[A-Z0-9-]{4,}$"
+          },
+          "speaker_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "speaker_role": {
+            "type": "string",
+            "minLength": 2
+          },
+          "start_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end_ms": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

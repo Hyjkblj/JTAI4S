@@ -7,8 +7,10 @@ This directory contains synthetic fixtures for validating XtalLoop's data contra
 - `golden-set.jsonl`: 24 synthetic Chinese meeting snippets with 27 expected scientific claims.
 - `extraction-bundle.example.json`: one complete meeting-to-domain-object example.
 - `demo-meeting-transcript.json`: a synthetic multi-utterance meeting transcript for the P0-04 extractor smoke test.
+- `demo-meeting-transcript.normalized-from-minutes.json`: extractor-ready transcript generated from the redacted Feishu Minutes sample.
 - `demo-extraction-bundle.generated.json`: deterministic extractor output generated from the demo transcript.
 - `demo-writeback-plan.generated.json`: deterministic P0-05 dry-run writeback plan for Base / Task / Docx.
+- `demo-e2e-report.md`: human-readable demo evidence report generated from the normalized transcript, extraction bundle and writeback plan.
 
 The fixtures cover parameter changes, ranges, units, negation, unresolved decisions, team controversy, risks, ambiguous assignees, relative deadlines, historical failures and cross-experiment reuse.
 
@@ -20,10 +22,22 @@ Regenerate and validate:
 npm test
 ```
 
+Run the end-to-end demo only:
+
+```powershell
+npm run demo:e2e
+```
+
 Run only the extractor:
 
 ```powershell
 npm run extract:demo
+```
+
+Normalize only the Feishu Minutes sample:
+
+```powershell
+npm run normalize:minutes
 ```
 
 Run only the writeback planner:
