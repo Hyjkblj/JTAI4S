@@ -9,6 +9,7 @@ function parseArgs(argv) {
     transcript: resolve(root, "evaluation", "demo-meeting-transcript.normalized-from-minutes.json"),
     bundle: resolve(root, "evaluation", "demo-extraction-bundle.generated.json"),
     plan: resolve(root, "evaluation", "demo-writeback-plan.generated.json"),
+    executionLog: resolve(root, "evaluation", "demo-writeback-execution-log.generated.json"),
     output: resolve(root, "evaluation", "demo-e2e-report.md")
   };
 
@@ -23,6 +24,9 @@ function parseArgs(argv) {
       index += 1;
     } else if (arg === "--plan") {
       args.plan = resolve(root, value);
+      index += 1;
+    } else if (arg === "--execution-log") {
+      args.executionLog = resolve(root, value);
       index += 1;
     } else if (arg === "--output") {
       args.output = resolve(root, value);
@@ -52,7 +56,7 @@ function markdownTable(rows) {
   return [header, ...rows.map(([key, value]) => `| ${key} | ${value} |`)].join("\n");
 }
 
-function buildReport(transcript, bundle, plan) {
+function buildReport(transcript, bundle, plan, executionLog) {
   const claimTypeCounts = countBy(bundle.claims, (claim) => claim.claim_type);
   const anchoredClaims = bundle.claims.filter(
     (claim) =>
@@ -66,6 +70,8 @@ function buildReport(transcript, bundle, plan) {
   const dryRunCommands = plan.commands.filter(
     (command) => command.requires_dry_run && command.command_preview.includes("--dry-run")
   ).length;
+  const executionSucceeded = executionLog.summary.succeeded;
+  const externalCommands = executionLog.summary.executed_external_commands;
 
   return [
     "# XtalLoop P0 端到端演示报告",
@@ -92,7 +98,9 @@ function buildReport(transcript, bundle, plan) {
       ["SourceAnchor 覆盖", `${anchoredClaims}/${bundle.claims.length}`],
       ["待人工审阅 Claims", `${reviewRequired}/${bundle.claims.length}`],
       ["写回命令计划", `${plan.commands.length}`],
-      ["Dry-run 命令", `${dryRunCommands}/${plan.commands.length}`]
+      ["Dry-run 命令", `${dryRunCommands}/${plan.commands.length}`],
+      ["执行日志成功项", `${executionSucceeded}/${executionLog.summary.total}`],
+      ["真实外部命令执行数", `${externalCommands}`]
     ]),
     "",
     "## 2. Claim 类型分布",
@@ -121,6 +129,7 @@ function buildReport(transcript, bundle, plan) {
     "1. 会议中出现参数变化、候选建议、最终决策、风险、历史失败复用和 ASR 日期异常。",
     "2. Extractor 将它们拆成 9 条可追溯 claim，每条都有说话人、时间戳、原文和 quote hash。",
     "3. Planner 只生成 Base / Task / Docx 的 dry-run 写回计划，避免未审阅结论自动发布。",
+    "4. Executor 在仓库演示模式下只生成模拟 dry-run execution log，不触发真实飞书调用。",
     "",
     "## 5. 当前限制",
     "",
@@ -135,7 +144,8 @@ const args = parseArgs(process.argv.slice(2));
 const transcript = await readJson(args.transcript);
 const bundle = await readJson(args.bundle);
 const plan = await readJson(args.plan);
-const report = buildReport(transcript, bundle, plan);
+const executionLog = await readJson(args.executionLog);
+const report = buildReport(transcript, bundle, plan, executionLog);
 
 await mkdir(dirname(args.output), { recursive: true });
 await writeFile(args.output, report, "utf8");

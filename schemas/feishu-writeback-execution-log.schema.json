@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xtalloop.local/schemas/feishu-writeback-execution-log.schema.json",
+  "title": "XtalLoop Feishu Writeback Execution Log",
+  "description": "A redacted execution log for simulated or real dry-run execution of controlled Feishu writeback plans.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "execution_id",
+    "plan_id",
+    "mode",
+    "started_at",
+    "ended_at",
+    "summary",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "execution_id": {
+      "type": "string",
+      "pattern": "^EXEC-[A-Z0-9-]{4,}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^PLAN-[A-Z0-9-]{4,}$"
+    },
+    "mode": {
+      "enum": [
+        "simulate",
+        "real_dry_run"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "succeeded",
+        "failed",
+        "executed_external_commands",
+        "dry_run_commands"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "succeeded": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "executed_external_commands": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dry_run_commands": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command_id",
+        "operation",
+        "target_type",
+        "mode",
+        "status",
+        "exit_code",
+        "ok",
+        "external_command_executed",
+        "dry_run",
+        "idempotency_key",
+        "started_at",
+        "ended_at",
+        "redacted_stdout",
+        "redacted_stderr",
+        "checks"
+      ],
+      "properties": {
+        "command_id": {
+          "type": "string",
+          "pattern": "^CMD-[A-Z0-9-]{4,}$"
+        },
+        "operation": {
+          "enum": [
+            "base.record_upsert",
+            "task.create",
+            "docx.create"
+          ]
+        },
+        "target_type": {
+          "enum": [
+            "base_review_record",
+            "task_review_action",
+            "docx_knowledge_card"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "simulate",
+            "real_dry_run"
+          ]
+        },
+        "status": {
+          "enum": [
+            "simulated_dry_run_ok",
+            "real_dry_run_ok",
+            "blocked",
+            "failed"
+          ]
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "external_command_executed": {
+          "type": "boolean"
+        },
+        "dry_run": {
+          "type": "boolean"
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 16
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "redacted_stdout": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "redacted_stderr": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operation_allowed",
+            "uses_writer_profile",
+            "uses_user_identity",
+            "dry_run_present",
+            "confirmation_not_bypassed",
+            "source_claims_present"
+          ],
+          "properties": {
+            "operation_allowed": {
+              "type": "boolean"
+            },
+            "uses_writer_profile": {
+              "type": "boolean"
+            },
+            "uses_user_identity": {
+              "type": "boolean"
+            },
+            "dry_run_present": {
+              "type": "boolean"
+            },
+            "confirmation_not_bypassed": {
+              "type": "boolean"
+            },
+            "source_claims_present": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

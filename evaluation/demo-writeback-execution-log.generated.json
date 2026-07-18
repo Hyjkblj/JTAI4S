@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "execution_id": "EXEC-DEMO-002-WRITEBACK",
+  "plan_id": "PLAN-DEMO-002-WRITEBACK",
+  "mode": "simulate",
+  "started_at": "2026-07-18T12:15:00+08:00",
+  "ended_at": "2026-07-18T12:15:01+08:00",
+  "summary": {
+    "total": 4,
+    "succeeded": 4,
+    "failed": 0,
+    "executed_external_commands": 0,
+    "dry_run_commands": 4
+  },
+  "entries": [
+    {
+      "command_id": "CMD-DEMO-002-BASE-001",
+      "operation": "base.record_upsert",
+      "target_type": "base_review_record",
+      "mode": "simulate",
+      "status": "simulated_dry_run_ok",
+      "exit_code": 0,
+      "ok": true,
+      "external_command_executed": false,
+      "dry_run": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:base_review_record:review-desk",
+      "started_at": "2026-07-18T12:15:00+08:00",
+      "ended_at": "2026-07-18T12:15:01+08:00",
+      "redacted_stdout": {
+        "ok": true,
+        "identity": "user",
+        "mode": "simulate",
+        "simulated": true,
+        "command_preview_hash": "sha256:8a35d161f2b0e938367cc5bfb37241bf03705a2741536b1477ee23291e583958",
+        "source_claim_count": 9,
+        "note": "No external Feishu command was executed in this repository-safe demo."
+      },
+      "redacted_stderr": null,
+      "checks": {
+        "operation_allowed": true,
+        "uses_writer_profile": true,
+        "uses_user_identity": true,
+        "dry_run_present": true,
+        "confirmation_not_bypassed": true,
+        "source_claims_present": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-TASK-001",
+      "operation": "task.create",
+      "target_type": "task_review_action",
+      "mode": "simulate",
+      "status": "simulated_dry_run_ok",
+      "exit_code": 0,
+      "ok": true,
+      "external_command_executed": false,
+      "dry_run": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:task_review_action:CLM-DEMO-002-008",
+      "started_at": "2026-07-18T12:15:00+08:00",
+      "ended_at": "2026-07-18T12:15:01+08:00",
+      "redacted_stdout": {
+        "ok": true,
+        "identity": "user",
+        "mode": "simulate",
+        "simulated": true,
+        "command_preview_hash": "sha256:5e892e13b0534cdb949e86a5011089b58fd89aa71163fecbb85e57ae1bb1e0f8",
+        "source_claim_count": 1,
+        "note": "No external Feishu command was executed in this repository-safe demo."
+      },
+      "redacted_stderr": null,
+      "checks": {
+        "operation_allowed": true,
+        "uses_writer_profile": true,
+        "uses_user_identity": true,
+        "dry_run_present": true,
+        "confirmation_not_bypassed": true,
+        "source_claims_present": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-TASK-002",
+      "operation": "task.create",
+      "target_type": "task_review_action",
+      "mode": "simulate",
+      "status": "simulated_dry_run_ok",
+      "exit_code": 0,
+      "ok": true,
+      "external_command_executed": false,
+      "dry_run": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:task_review_action:risk-review",
+      "started_at": "2026-07-18T12:15:00+08:00",
+      "ended_at": "2026-07-18T12:15:01+08:00",
+      "redacted_stdout": {
+        "ok": true,
+        "identity": "user",
+        "mode": "simulate",
+        "simulated": true,
+        "command_preview_hash": "sha256:30ad7ed1581a62e23e0b2f4a2c9fe22c238822242f2f789c504418fd11be6ccd",
+        "source_claim_count": 1,
+        "note": "No external Feishu command was executed in this repository-safe demo."
+      },
+      "redacted_stderr": null,
+      "checks": {
+        "operation_allowed": true,
+        "uses_writer_profile": true,
+        "uses_user_identity": true,
+        "dry_run_present": true,
+        "confirmation_not_bypassed": true,
+        "source_claims_present": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-DOCX-001",
+      "operation": "docx.create",
+      "target_type": "docx_knowledge_card",
+      "mode": "simulate",
+      "status": "simulated_dry_run_ok",
+      "exit_code": 0,
+      "ok": true,
+      "external_command_executed": false,
+      "dry_run": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:docx_knowledge_card:draft-card",
+      "started_at": "2026-07-18T12:15:00+08:00",
+      "ended_at": "2026-07-18T12:15:01+08:00",
+      "redacted_stdout": {
+        "ok": true,
+        "identity": "user",
+        "mode": "simulate",
+        "simulated": true,
+        "command_preview_hash": "sha256:b1b8de1b24817942b13cb8d806ddbde7d1f5244dbdfe8a588835903e23460863",
+        "source_claim_count": 9,
+        "note": "No external Feishu command was executed in this repository-safe demo."
+      },
+      "redacted_stderr": null,
+      "checks": {
+        "operation_allowed": true,
+        "uses_writer_profile": true,
+        "uses_user_identity": true,
+        "dry_run_present": true,
+        "confirmation_not_bypassed": true,
+        "source_claims_present": true
+      }
+    }
+  ]
+}

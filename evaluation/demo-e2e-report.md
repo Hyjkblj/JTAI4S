@@ -24,6 +24,8 @@ Feishu Minutes redacted sample
 | 待人工审阅 Claims | 9/9 |
 | 写回命令计划 | 4 |
 | Dry-run 命令 | 4/4 |
+| 执行日志成功项 | 4/4 |
+| 真实外部命令执行数 | 0 |
 
 ## 2. Claim 类型分布
 
@@ -56,6 +58,7 @@ Feishu Minutes redacted sample
 1. 会议中出现参数变化、候选建议、最终决策、风险、历史失败复用和 ASR 日期异常。
 2. Extractor 将它们拆成 9 条可追溯 claim，每条都有说话人、时间戳、原文和 quote hash。
 3. Planner 只生成 Base / Task / Docx 的 dry-run 写回计划，避免未审阅结论自动发布。
+4. Executor 在仓库演示模式下只生成模拟 dry-run execution log，不触发真实飞书调用。
 
 ## 5. 当前限制
 

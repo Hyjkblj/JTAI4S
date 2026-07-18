@@ -38,6 +38,9 @@ const meetingTranscriptSchema = await readJson(
 const writebackPlanSchema = await readJson(
   resolve(root, "schemas", "feishu-writeback-plan.schema.json")
 );
+const writebackExecutionLogSchema = await readJson(
+  resolve(root, "schemas", "feishu-writeback-execution-log.schema.json")
+);
 
 const ajv = new Ajv2020({
   allErrors: true,
@@ -52,6 +55,7 @@ const validateGoldenEntry = ajv.compile(goldenEntrySchema);
 const validateExtractionBundle = ajv.compile(extractionBundleSchema);
 const validateMeetingTranscript = ajv.compile(meetingTranscriptSchema);
 const validateWritebackPlan = ajv.compile(writebackPlanSchema);
+const validateWritebackExecutionLog = ajv.compile(writebackExecutionLogSchema);
 
 const goldenSetText = await readFile(
   resolve(root, "evaluation", "golden-set.jsonl"),
@@ -169,6 +173,9 @@ const generatedExtractionBundle = await readJson(
 );
 const writebackPlan = await readJson(
   resolve(root, "evaluation", "demo-writeback-plan.generated.json")
+);
+const writebackExecutionLog = await readJson(
+  resolve(root, "evaluation", "demo-writeback-execution-log.generated.json")
 );
 const extractionBundles = [
   {
@@ -323,6 +330,54 @@ if (!validateWritebackPlan(writebackPlan)) {
   }
 }
 
+if (!validateWritebackExecutionLog(writebackExecutionLog)) {
+  errors.push(
+    `demo-writeback-execution-log.generated.json: schema validation failed: ${ajv.errorsText(
+      validateWritebackExecutionLog.errors,
+      { separator: "; " }
+    )}`
+  );
+} else {
+  const planCommandIds = new Set(writebackPlan.commands.map((command) => command.command_id));
+  const planIdempotencyKeys = new Map(
+    writebackPlan.commands.map((command) => [command.command_id, command.idempotency_key])
+  );
+
+  if (writebackExecutionLog.plan_id !== writebackPlan.plan_id) {
+    errors.push("demo-writeback-execution-log.generated.json: plan_id does not match writeback plan");
+  }
+  if (writebackExecutionLog.summary.executed_external_commands !== 0) {
+    errors.push("demo-writeback-execution-log.generated.json: demo must not execute external commands");
+  }
+  if (writebackExecutionLog.summary.dry_run_commands !== writebackExecutionLog.entries.length) {
+    errors.push("demo-writeback-execution-log.generated.json: every entry must be dry-run");
+  }
+  if (writebackExecutionLog.summary.failed !== 0) {
+    errors.push("demo-writeback-execution-log.generated.json: demo execution log must not contain failures");
+  }
+
+  for (const entry of writebackExecutionLog.entries) {
+    if (!planCommandIds.has(entry.command_id)) {
+      errors.push(`${entry.command_id}: execution log references unknown command`);
+    }
+    if (entry.idempotency_key !== planIdempotencyKeys.get(entry.command_id)) {
+      errors.push(`${entry.command_id}: execution log idempotency_key does not match plan`);
+    }
+    if (entry.external_command_executed) {
+      errors.push(`${entry.command_id}: demo must not execute external command`);
+    }
+    if (!entry.dry_run) {
+      errors.push(`${entry.command_id}: execution log entry must be dry-run`);
+    }
+    if (!entry.ok || entry.exit_code !== 0) {
+      errors.push(`${entry.command_id}: simulated dry-run should succeed with exit_code 0`);
+    }
+    if (!Object.values(entry.checks).every(Boolean)) {
+      errors.push(`${entry.command_id}: safety checks must all pass`);
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`Artifact validation failed with ${errors.length} error(s):`);
   for (const error of errors) {
@@ -340,6 +395,7 @@ console.log(
     `Rejected invalid examples: ${invalidExamples.length}`,
     `Meeting transcripts: ${meetingTranscripts.length}`,
     `Extraction bundles: ${extractionBundles.length}`,
-    `Writeback commands: ${writebackPlan.commands.length}`
+    `Writeback commands: ${writebackPlan.commands.length}`,
+    `Execution log entries: ${writebackExecutionLog.entries.length}`
   ].join("\n")
 );

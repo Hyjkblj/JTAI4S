@@ -10,6 +10,7 @@ This directory contains synthetic fixtures for validating XtalLoop's data contra
 - `demo-meeting-transcript.normalized-from-minutes.json`: extractor-ready transcript generated from the redacted Feishu Minutes sample.
 - `demo-extraction-bundle.generated.json`: deterministic extractor output generated from the demo transcript.
 - `demo-writeback-plan.generated.json`: deterministic P0-05 dry-run writeback plan for Base / Task / Docx.
+- `demo-writeback-execution-log.generated.json`: deterministic simulated dry-run execution log for the writeback plan.
 - `demo-e2e-report.md`: human-readable demo evidence report generated from the normalized transcript, extraction bundle and writeback plan.
 
 The fixtures cover parameter changes, ranges, units, negation, unresolved decisions, team controversy, risks, ambiguous assignees, relative deadlines, historical failures and cross-experiment reuse.
