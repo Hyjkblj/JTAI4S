@@ -5,6 +5,7 @@
   "description": "Evidence-first AI research workflow accelerator prototype.",
   "type": "module",
   "scripts": {
+    "check:env": "node scripts/check-env.mjs",
     "extract:demo": "node scripts/extract-meeting-claims.mjs --input evaluation/demo-meeting-transcript.normalized-from-minutes.json --output evaluation/demo-extraction-bundle.generated.json",
     "generate:golden-set": "node scripts/generate-golden-set.mjs",
     "demo:e2e": "npm run normalize:minutes && npm run extract:demo && npm run plan:writeback && npm run execute:writeback && npm run report:demo",
