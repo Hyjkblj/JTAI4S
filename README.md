@@ -34,6 +34,72 @@ flowchart LR
 - 参数、风险、任务默认进入 `IN_REVIEW`，不自动发布为 `VERIFIED`。
 - 写回层默认 dry-run，强制 `xtal-writer` profile，禁止 raw API、删除、公开分享等高风险动作。
 
+## 真实业务场景如何实现
+
+评委在 GitHub 上看不到真实飞书 CLI 配置是正常且必要的：飞书 App Secret、OAuth token、Base token、Doc token、Open ID、会议原文都属于租户私有信息，不能进入公开仓库。
+
+真实落地时，本项目按下面的方式接入企业飞书测试租户：
+
+```mermaid
+sequenceDiagram
+  participant M as 飞书会议/妙记
+  participant R as xtal-reader
+  participant A as XtalLoop Agent
+  participant B as Base 审阅台
+  participant T as 飞书任务
+  participant D as Docx/Wiki 知识卡
+  participant O as Obsidian
+
+  M->>R: 会议结束 / Note / Minutes 生成事件
+  R->>A: 拉取 transcript，不使用 AI summary 作为最终依据
+  A->>A: 标准化 transcript，抽取 IN_REVIEW claims
+  A->>B: 生成 Base 审阅记录 dry-run plan
+  A->>T: 生成复核任务 dry-run plan
+  A->>D: 生成知识卡片草稿 dry-run plan
+  B->>A: 人工审阅参数、风险、日期、任务
+  A->>D: 审阅通过后发布 VERIFIED 知识卡
+  D->>O: Obsidian 仅读取授权摘要与可复用图谱索引
+```
+
+真实配置分三层：
+
+| 层级 | 需要什么 | 是否进入公开仓库 |
+|---|---|---:|
+| 公开 demo | 合成/脱敏 transcript、schema、demo plan、execution log | 是 |
+| 私有测试租户 | `xtal-reader`、`xtal-writer`、测试会议、测试 Base/Docx/Task 目标 | 否 |
+| 企业试点 | 固定知识空间、固定审阅台、权限矩阵、审计日志、失败队列 | 否 |
+
+私有测试租户中推荐配置两个 lark-cli profile：
+
+| Profile | 身份 | 用途 |
+|---|---|---|
+| `xtal-reader` | user | 读取会议、Note、Minutes、transcript |
+| `xtal-writer` | user | 写入 Base、Task、Docx，并读回校验 |
+
+真实业务流程：
+
+1. 在飞书测试租户中创建测试应用，并按最小 scope 授权。
+2. 用 `xtal-reader` 读取会议产物：`vc +detail`、`note +detail`、`minutes +detail --transcript`。
+3. 将真实响应放到 `.tmp/`，例如 `.tmp/real-minutes-detail.json`，不提交 Git。
+4. 使用 normalizer 转成标准 transcript。
+5. 使用 extractor 生成 `IN_REVIEW` claims，每条 claim 绑定 SourceAnchor。
+6. 使用 planner 生成 Base / Task / Docx 写回计划。
+7. 先执行 dry-run，人工确认后再真实写入。
+8. 写回后读回校验，并将脱敏摘要保存为 evidence。
+
+当前公开仓库已经包含真实可行性的脱敏证据：
+
+- 会议结束、Note 生成、Minutes 生成事件已在测试租户捕获；
+- Minutes transcript 已能读取到说话人与时间戳；
+- Base、飞书任务、Docx 已完成真实写入和读回验证；
+- 真实 token、URL、Open ID、会议正文均未提交。
+
+如需在评委自己的飞书租户复现，请看：
+
+- [docs/evaluator-guide.md](docs/evaluator-guide.md)
+- [docs/real-feishu-setup.md](docs/real-feishu-setup.md)
+- [.env.example](.env.example)
+
 ## 快速运行
 
 环境要求：
