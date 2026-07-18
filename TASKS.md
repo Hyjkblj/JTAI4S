@@ -201,8 +201,8 @@
 **预计时间：1 天**  
 **依赖：P0 原型形成稳定结构后持续整理**
 
-- [ ] 创建根目录 `README.md`
-- [ ] 第一屏放置一句话价值、架构图和演示 GIF
+- [x] 创建根目录 `README.md`
+- [x] 第一屏放置一句话价值和可运行链路图
 - [ ] 提供三步运行说明和环境变量示例
 - [ ] 增加 `.gitignore`、`.env.example`、License 和贡献说明
 - [ ] 整理 `docs/`、`schemas/`、`fixtures/`、`evaluation/`、`apps/`、`services/` 目录
