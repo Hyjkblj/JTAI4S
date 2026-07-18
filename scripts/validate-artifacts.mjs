@@ -150,13 +150,59 @@ for (const example of invalidExamples) {
 const extractionBundle = await readJson(
   resolve(root, "evaluation", "extraction-bundle.example.json")
 );
-if (!validateExtractionBundle(extractionBundle)) {
-  errors.push(
-    `extraction-bundle.example.json: schema validation failed: ${ajv.errorsText(
-      validateExtractionBundle.errors,
-      { separator: "; " }
-    )}`
-  );
+const generatedExtractionBundle = await readJson(
+  resolve(root, "evaluation", "demo-extraction-bundle.generated.json")
+);
+const extractionBundles = [
+  {
+    name: "extraction-bundle.example.json",
+    value: extractionBundle,
+    generatedByExtractor: false
+  },
+  {
+    name: "demo-extraction-bundle.generated.json",
+    value: generatedExtractionBundle,
+    generatedByExtractor: true
+  }
+];
+
+for (const bundle of extractionBundles) {
+  if (!validateExtractionBundle(bundle.value)) {
+    errors.push(
+      `${bundle.name}: schema validation failed: ${ajv.errorsText(
+        validateExtractionBundle.errors,
+        { separator: "; " }
+      )}`
+    );
+    continue;
+  }
+
+  for (const claim of bundle.value.claims) {
+    const expectedHash = `sha256:${createHash("sha256")
+      .update(claim.source.quote)
+      .digest("hex")}`;
+    if (claim.source.quote_hash !== expectedHash) {
+      errors.push(`${bundle.name}/${claim.claim_id}: source quote_hash is incorrect`);
+    }
+    if (claim.source.end_ms <= claim.source.start_ms) {
+      errors.push(`${bundle.name}/${claim.claim_id}: source end_ms must be after start_ms`);
+    }
+    if (claim.source.meeting_id !== bundle.value.meeting.meeting_id) {
+      errors.push(`${bundle.name}/${claim.claim_id}: source meeting_id does not match bundle`);
+    }
+    if (claim.meeting_id !== bundle.value.meeting.meeting_id) {
+      errors.push(`${bundle.name}/${claim.claim_id}: claim meeting_id does not match bundle`);
+    }
+    if (claim.experiment_id !== bundle.value.experiment.experiment_id) {
+      errors.push(`${bundle.name}/${claim.claim_id}: claim experiment_id does not match bundle`);
+    }
+    if (bundle.generatedByExtractor && claim.verification_status !== "IN_REVIEW") {
+      errors.push(`${bundle.name}/${claim.claim_id}: extractor output must be IN_REVIEW`);
+    }
+    if (bundle.generatedByExtractor && claim.review.decision !== "pending") {
+      errors.push(`${bundle.name}/${claim.claim_id}: extractor output must require review`);
+    }
+  }
 }
 
 if (errors.length > 0) {
@@ -174,6 +220,6 @@ console.log(
     `Scientific claims: ${claimIds.size}`,
     `Valid schema examples: ${validExamples.length}`,
     `Rejected invalid examples: ${invalidExamples.length}`,
-    "Extraction bundles: 1"
+    `Extraction bundles: ${extractionBundles.length}`
   ].join("\n")
 );

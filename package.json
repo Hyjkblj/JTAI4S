@@ -5,13 +5,13 @@
   "description": "Evidence-first AI research workflow accelerator prototype.",
   "type": "module",
   "scripts": {
+    "extract:demo": "node scripts/extract-meeting-claims.mjs --input evaluation/demo-meeting-transcript.json --output evaluation/demo-extraction-bundle.generated.json",
     "generate:golden-set": "node scripts/generate-golden-set.mjs",
     "validate:artifacts": "node scripts/validate-artifacts.mjs",
-    "test": "npm run generate:golden-set && npm run validate:artifacts"
+    "test": "npm run generate:golden-set && npm run extract:demo && npm run validate:artifacts"
   },
   "devDependencies": {
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1"
   }
 }
-

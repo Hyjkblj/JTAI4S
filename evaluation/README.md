@@ -6,6 +6,8 @@ This directory contains synthetic fixtures for validating XtalLoop's data contra
 
 - `golden-set.jsonl`: 24 synthetic Chinese meeting snippets with 27 expected scientific claims.
 - `extraction-bundle.example.json`: one complete meeting-to-domain-object example.
+- `demo-meeting-transcript.json`: a synthetic multi-utterance meeting transcript for the P0-04 extractor smoke test.
+- `demo-extraction-bundle.generated.json`: deterministic extractor output generated from the demo transcript.
 
 The fixtures cover parameter changes, ranges, units, negation, unresolved decisions, team controversy, risks, ambiguous assignees, relative deadlines, historical failures and cross-experiment reuse.
 
@@ -17,5 +19,10 @@ Regenerate and validate:
 npm test
 ```
 
-Do not replace these fixtures with real meeting content unless it has been explicitly authorized and deidentified.
+Run only the extractor:
 
+```powershell
+npm run extract:demo
+```
+
+Do not replace these fixtures with real meeting content unless it has been explicitly authorized and deidentified.

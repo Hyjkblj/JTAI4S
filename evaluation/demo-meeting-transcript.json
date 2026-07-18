@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "data_origin": "synthetic",
+  "extracted_at": "2026-07-18T12:00:00+08:00",
+  "meeting": {
+    "meeting_id": "MTG-DEMO-002",
+    "title": "AI实验研发加速器 P0-04 结构化抽取演示会议",
+    "started_at": "2026-07-18T10:00:00+08:00",
+    "ended_at": "2026-07-18T10:08:00+08:00",
+    "source_system": "imported_fixture"
+  },
+  "experiment": {
+    "experiment_id": "EXP-DEMO-002",
+    "project_id": "PROJECT-XTALLOOP-DEMO",
+    "experiment_type": "synthesis",
+    "status": "PLANNING"
+  },
+  "utterances": [
+    {
+      "utterance_id": "UTT-DEMO-002-001",
+      "speaker_id": "USER-DEMO-MANAGER",
+      "speaker_role": "manager",
+      "start_ms": 10000,
+      "end_ms": 28000,
+      "text": "实验编号 EXP-DEMO-002，本轮做合成条件复核；不是八十度，主实验改成七十五度，八十度只保留小样对照。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-002",
+      "speaker_id": "USER-DEMO-EXPERIMENT",
+      "speaker_role": "experiment",
+      "start_ms": 30000,
+      "end_ms": 42000,
+      "text": "流动相乙腈从百分之三十降到百分之二十五，按体积比记录。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-003",
+      "speaker_id": "USER-DEMO-ALGORITHM",
+      "speaker_role": "algorithm",
+      "start_ms": 44000,
+      "end_ms": 56000,
+      "text": "我建议把搅拌速度提到 600 转，但这只是建议，今天先不定。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-004",
+      "speaker_id": "USER-DEMO-MANAGER",
+      "speaker_role": "manager",
+      "start_ms": 58000,
+      "end_ms": 72000,
+      "text": "最终不要直接用 600 转，先按 500 转每分钟执行，结果复盘后再调。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-005",
+      "speaker_id": "USER-DEMO-EXPERIMENT",
+      "speaker_role": "experiment",
+      "start_ms": 74000,
+      "end_ms": 90000,
+      "text": "90 摄氏度以上可能出现降解，这个作为高风险提示写进审阅台。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-006",
+      "speaker_id": "USER-DEMO-MATERIALS",
+      "speaker_role": "materials",
+      "start_ms": 92000,
+      "end_ms": 106000,
+      "text": "历史失败案例 EXP-HIST-009 在高温条件下出现过相似杂质峰，建议检索复用。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-007",
+      "speaker_id": "USER-DEMO-MANAGER",
+      "speaker_role": "manager",
+      "start_ms": 108000,
+      "end_ms": 126000,
+      "text": "会后今天下午五点前复核截止日期，飞书 ASR 可能把 2026 识别成 2020。"
+    },
+    {
+      "utterance_id": "UTT-DEMO-002-008",
+      "speaker_id": "USER-DEMO-ALGORITHM",
+      "speaker_role": "algorithm",
+      "start_ms": 128000,
+      "end_ms": 144000,
+      "text": "关于晶型筛选 B 方案这次没有形成结论，下次评审再决定。"
+    }
+  ]
+}
