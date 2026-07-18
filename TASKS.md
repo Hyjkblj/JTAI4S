@@ -132,14 +132,14 @@
 **预计时间：1-2 天**  
 **依赖：P0-01、P0-03**
 
-- [ ] 对 Agent 开放命令白名单，不开放任意 Raw API
-- [ ] 读取操作固定使用 `xtal-reader` Profile
-- [ ] 写入操作固定使用 `xtal-writer` Profile
-- [ ] 对创建任务、发送消息、修改文档等操作生成执行计划
-- [ ] 写入前执行 `--dry-run` 或结构化预览
-- [ ] 使用 `meeting_id + artifact_version + target_type` 作为幂等键
-- [ ] 记录命令、参数、操作者、身份、退出码和返回摘要
-- [ ] 对输出做密钥和敏感字段脱敏
+- [x] 对 Agent 开放命令白名单，不开放任意 Raw API
+- [x] 读取操作固定设计为 `xtal-reader` Profile，写入操作固定设计为 `xtal-writer` Profile
+- [x] 对 Base 审阅记录、飞书任务和 Docx 知识卡片生成结构化执行计划
+- [x] 写入计划默认 `dry_run`，每条写命令预览必须包含 `--dry-run`
+- [x] 使用 `meeting_id + bundle_id + planner_version + target_type` 作为幂等键
+- [x] 记录命令、参数、操作者、身份、权限边界和来源 Claim
+- [x] 对资源 Token、人员标识和原始逐字稿做脱敏/排除
+- [ ] 接入真实 lark-cli 执行层，记录退出码和返回摘要
 - [ ] 设置超时、限流、重试和失败队列
 
 **验收标准：** 重复执行同一事件不产生重复任务或重复知识卡；模型不能通过提示词调用白名单外命令。

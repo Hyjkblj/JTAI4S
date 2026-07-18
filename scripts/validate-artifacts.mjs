@@ -32,6 +32,9 @@ const goldenEntrySchema = await readJson(
 const extractionBundleSchema = await readJson(
   resolve(root, "schemas", "extraction-bundle.schema.json")
 );
+const writebackPlanSchema = await readJson(
+  resolve(root, "schemas", "feishu-writeback-plan.schema.json")
+);
 
 const ajv = new Ajv2020({
   allErrors: true,
@@ -44,6 +47,7 @@ ajv.addSchema(claimSchema);
 const validateClaim = ajv.getSchema(claimSchema.$id);
 const validateGoldenEntry = ajv.compile(goldenEntrySchema);
 const validateExtractionBundle = ajv.compile(extractionBundleSchema);
+const validateWritebackPlan = ajv.compile(writebackPlanSchema);
 
 const goldenSetText = await readFile(
   resolve(root, "evaluation", "golden-set.jsonl"),
@@ -153,6 +157,9 @@ const extractionBundle = await readJson(
 const generatedExtractionBundle = await readJson(
   resolve(root, "evaluation", "demo-extraction-bundle.generated.json")
 );
+const writebackPlan = await readJson(
+  resolve(root, "evaluation", "demo-writeback-plan.generated.json")
+);
 const extractionBundles = [
   {
     name: "extraction-bundle.example.json",
@@ -205,6 +212,71 @@ for (const bundle of extractionBundles) {
   }
 }
 
+if (!validateWritebackPlan(writebackPlan)) {
+  errors.push(
+    `demo-writeback-plan.generated.json: schema validation failed: ${ajv.errorsText(
+      validateWritebackPlan.errors,
+      { separator: "; " }
+    )}`
+  );
+} else {
+  const generatedClaimIds = new Set(
+    generatedExtractionBundle.claims.map((claim) => claim.claim_id)
+  );
+  const writebackIdempotencyKeys = new Set();
+  const serializedPlan = JSON.stringify(writebackPlan);
+  const sensitivePatterns = [
+    /https?:\/\/[^\s")\]]*feishu\.cn\/(?:base|docx|docs|wiki|minutes|drive)\b/u,
+    /https?:\/\/accounts\.feishu\.cn\/oauth/u,
+    /\bbascn[A-Za-z0-9]+\b/u,
+    /\bdoxcn[A-Za-z0-9]+\b/u,
+    /\bdoccn[A-Za-z0-9]+\b/u,
+    /\bshtcn[A-Za-z0-9]+\b/u,
+    /\btbl[A-Za-z0-9]{8,}\b/u,
+    /\brec[A-Za-z0-9]{8,}\b/u,
+    /\bou_[A-Za-z0-9]{8,}\b/u,
+    /\bcli_[A-Za-z0-9]{8,}\b/u
+  ];
+
+  if (!writebackPlan.safety.gateway_does_not_execute) {
+    errors.push("demo-writeback-plan.generated.json: gateway must not execute commands");
+  }
+  if (!writebackPlan.safety.dry_run_default) {
+    errors.push("demo-writeback-plan.generated.json: dry_run_default must be true");
+  }
+  if (!writebackPlan.safety.requires_human_confirmation_for_write) {
+    errors.push("demo-writeback-plan.generated.json: writes must require human confirmation");
+  }
+  if (sensitivePatterns.some((pattern) => pattern.test(serializedPlan))) {
+    errors.push("demo-writeback-plan.generated.json: contains possible real Feishu resource identifier");
+  }
+
+  for (const command of writebackPlan.commands) {
+    if (writebackIdempotencyKeys.has(command.idempotency_key)) {
+      errors.push(`${command.command_id}: duplicate idempotency_key`);
+    }
+    writebackIdempotencyKeys.add(command.idempotency_key);
+
+    if (!command.command_preview.includes("--dry-run")) {
+      errors.push(`${command.command_id}: command_preview must include --dry-run`);
+    }
+    if (command.profile !== "xtal-writer") {
+      errors.push(`${command.command_id}: write command must use xtal-writer`);
+    }
+    if (command.identity !== "user") {
+      errors.push(`${command.command_id}: write command must use user identity`);
+    }
+    if (!command.requires_dry_run || !command.requires_confirmation) {
+      errors.push(`${command.command_id}: write command must require dry-run and confirmation`);
+    }
+    for (const claimId of command.source_claim_ids) {
+      if (!generatedClaimIds.has(claimId)) {
+        errors.push(`${command.command_id}: unknown source_claim_id ${claimId}`);
+      }
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`Artifact validation failed with ${errors.length} error(s):`);
   for (const error of errors) {
@@ -220,6 +292,7 @@ console.log(
     `Scientific claims: ${claimIds.size}`,
     `Valid schema examples: ${validExamples.length}`,
     `Rejected invalid examples: ${invalidExamples.length}`,
-    `Extraction bundles: ${extractionBundles.length}`
+    `Extraction bundles: ${extractionBundles.length}`,
+    `Writeback commands: ${writebackPlan.commands.length}`
   ].join("\n")
 );

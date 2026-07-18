@@ -7,8 +7,9 @@
   "scripts": {
     "extract:demo": "node scripts/extract-meeting-claims.mjs --input evaluation/demo-meeting-transcript.json --output evaluation/demo-extraction-bundle.generated.json",
     "generate:golden-set": "node scripts/generate-golden-set.mjs",
+    "plan:writeback": "node scripts/plan-feishu-writeback.mjs --input evaluation/demo-extraction-bundle.generated.json --output evaluation/demo-writeback-plan.generated.json",
     "validate:artifacts": "node scripts/validate-artifacts.mjs",
-    "test": "npm run generate:golden-set && npm run extract:demo && npm run validate:artifacts"
+    "test": "npm run generate:golden-set && npm run extract:demo && npm run plan:writeback && npm run validate:artifacts"
   },
   "devDependencies": {
     "ajv": "8.17.1",

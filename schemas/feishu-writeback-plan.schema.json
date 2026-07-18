@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xtalloop.local/schemas/feishu-writeback-plan.schema.json",
+  "title": "XtalLoop Controlled Feishu Writeback Plan",
+  "description": "A dry-run-first command plan for writing reviewed extraction artifacts back to Feishu.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "source_bundle_id",
+    "mode",
+    "created_at",
+    "actor",
+    "safety",
+    "commands"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^PLAN-[A-Z0-9-]{4,}$"
+    },
+    "source_bundle_id": {
+      "type": "string",
+      "pattern": "^BND-[A-Z0-9-]{4,}$"
+    },
+    "mode": {
+      "enum": [
+        "dry_run",
+        "awaiting_confirmation",
+        "approved"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "identity",
+        "permission_boundary"
+      ],
+      "properties": {
+        "profile": {
+          "enum": [
+            "xtal-reader",
+            "xtal-writer"
+          ]
+        },
+        "identity": {
+          "enum": [
+            "user",
+            "bot"
+          ]
+        },
+        "permission_boundary": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateway_does_not_execute",
+        "dry_run_default",
+        "requires_human_confirmation_for_write",
+        "redacts_sensitive_fields",
+        "allowed_operations",
+        "forbidden_operations"
+      ],
+      "properties": {
+        "gateway_does_not_execute": {
+          "type": "boolean"
+        },
+        "dry_run_default": {
+          "type": "boolean"
+        },
+        "requires_human_confirmation_for_write": {
+          "type": "boolean"
+        },
+        "redacts_sensitive_fields": {
+          "type": "boolean"
+        },
+        "allowed_operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/operation"
+          }
+        },
+        "forbidden_operations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/command"
+      }
+    }
+  },
+  "$defs": {
+    "operation": {
+      "enum": [
+        "base.record_upsert",
+        "task.create",
+        "docx.create"
+      ]
+    },
+    "targetType": {
+      "enum": [
+        "base_review_record",
+        "task_review_action",
+        "docx_knowledge_card"
+      ]
+    },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command_id",
+        "target_type",
+        "operation",
+        "profile",
+        "identity",
+        "risk_level",
+        "requires_dry_run",
+        "requires_confirmation",
+        "idempotency_key",
+        "source_claim_ids",
+        "command_preview",
+        "payload",
+        "redaction"
+      ],
+      "properties": {
+        "command_id": {
+          "type": "string",
+          "pattern": "^CMD-[A-Z0-9-]{4,}$"
+        },
+        "target_type": {
+          "$ref": "#/$defs/targetType"
+        },
+        "operation": {
+          "$ref": "#/$defs/operation"
+        },
+        "profile": {
+          "const": "xtal-writer"
+        },
+        "identity": {
+          "const": "user"
+        },
+        "risk_level": {
+          "enum": [
+            "write",
+            "high-risk-write"
+          ]
+        },
+        "requires_dry_run": {
+          "const": true
+        },
+        "requires_confirmation": {
+          "const": true
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256
+        },
+        "source_claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CLM-[A-Z0-9-]{4,}$"
+          }
+        },
+        "command_preview": {
+          "type": "string",
+          "minLength": 10
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "redaction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resource_tokens_redacted",
+            "person_identifiers_redacted",
+            "raw_transcript_excluded"
+          ],
+          "properties": {
+            "resource_tokens_redacted": {
+              "type": "boolean"
+            },
+            "person_identifiers_redacted": {
+              "type": "boolean"
+            },
+            "raw_transcript_excluded": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

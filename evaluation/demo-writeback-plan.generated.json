@@ -1,0 +1,330 @@
+{
+  "schema_version": "1.0.0",
+  "plan_id": "PLAN-DEMO-002-WRITEBACK",
+  "source_bundle_id": "BND-DEMO-002",
+  "mode": "dry_run",
+  "created_at": "2026-07-18T12:10:00+08:00",
+  "actor": {
+    "profile": "xtal-writer",
+    "identity": "user",
+    "permission_boundary": "Separate writer profile. Plan generation only; real CLI execution requires dry-run preview and explicit human confirmation."
+  },
+  "safety": {
+    "gateway_does_not_execute": true,
+    "dry_run_default": true,
+    "requires_human_confirmation_for_write": true,
+    "redacts_sensitive_fields": true,
+    "allowed_operations": [
+      "base.record_upsert",
+      "task.create",
+      "docx.create"
+    ],
+    "forbidden_operations": [
+      "raw_api_call",
+      "permission_change",
+      "message_send",
+      "delete",
+      "share_public_link"
+    ]
+  },
+  "commands": [
+    {
+      "command_id": "CMD-DEMO-002-BASE-001",
+      "target_type": "base_review_record",
+      "operation": "base.record_upsert",
+      "profile": "xtal-writer",
+      "identity": "user",
+      "risk_level": "write",
+      "requires_dry_run": true,
+      "requires_confirmation": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:base_review_record:review-desk",
+      "source_claim_ids": [
+        "CLM-DEMO-002-001",
+        "CLM-DEMO-002-002",
+        "CLM-DEMO-002-003",
+        "CLM-DEMO-002-004",
+        "CLM-DEMO-002-005",
+        "CLM-DEMO-002-006",
+        "CLM-DEMO-002-007",
+        "CLM-DEMO-002-008",
+        "CLM-DEMO-002-009"
+      ],
+      "command_preview": "lark-cli base +record-upsert --profile xtal-writer --as user --dry-run --payload @.tmp/writeback/base-review-record.json",
+      "payload": {
+        "table_purpose": "结论审阅台",
+        "experiment_id": "EXP-DEMO-002",
+        "meeting_id": "MTG-DEMO-002",
+        "bundle_id": "BND-DEMO-002",
+        "review_status": "IN_REVIEW",
+        "claim_count": 9,
+        "parameter_count": 5,
+        "risk_count": 1,
+        "task_count": 1,
+        "flags": [
+          "unresolved_decision",
+          "uncertain_causality",
+          "needs_domain_review",
+          "possible_duplicate_failure",
+          "relative_time"
+        ],
+        "parameter_summary": [
+          {
+            "claim_id": "CLM-DEMO-002-001",
+            "name": "reaction_temperature",
+            "value": 75,
+            "previous_value": 80,
+            "unit": "Cel",
+            "status": "IN_REVIEW",
+            "raw_text": "主实验改成七十五度"
+          },
+          {
+            "claim_id": "CLM-DEMO-002-002",
+            "name": "reaction_temperature",
+            "value": 80,
+            "previous_value": null,
+            "unit": "Cel",
+            "status": "IN_REVIEW",
+            "raw_text": "八十度只保留小样对照"
+          },
+          {
+            "claim_id": "CLM-DEMO-002-003",
+            "name": "acetonitrile_ratio",
+            "value": 25,
+            "previous_value": 30,
+            "unit": "%",
+            "status": "IN_REVIEW",
+            "raw_text": "乙腈从百分之三十降到百分之二十五"
+          },
+          {
+            "claim_id": "CLM-DEMO-002-004",
+            "name": "stirring_speed",
+            "value": "600 r/min",
+            "previous_value": null,
+            "unit": "r/min",
+            "status": "IN_REVIEW",
+            "raw_text": "建议把搅拌速度提到 600 转"
+          },
+          {
+            "claim_id": "CLM-DEMO-002-005",
+            "name": "stirring_speed",
+            "value": 500,
+            "previous_value": null,
+            "unit": "r/min",
+            "status": "IN_REVIEW",
+            "raw_text": "先按 500 转每分钟执行"
+          }
+        ],
+        "source_claim_ids": [
+          "CLM-DEMO-002-001",
+          "CLM-DEMO-002-002",
+          "CLM-DEMO-002-003",
+          "CLM-DEMO-002-004",
+          "CLM-DEMO-002-005",
+          "CLM-DEMO-002-006",
+          "CLM-DEMO-002-007",
+          "CLM-DEMO-002-008",
+          "CLM-DEMO-002-009"
+        ]
+      },
+      "redaction": {
+        "resource_tokens_redacted": true,
+        "person_identifiers_redacted": true,
+        "raw_transcript_excluded": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-TASK-001",
+      "target_type": "task_review_action",
+      "operation": "task.create",
+      "profile": "xtal-writer",
+      "identity": "user",
+      "risk_level": "write",
+      "requires_dry_run": true,
+      "requires_confirmation": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:task_review_action:CLM-DEMO-002-008",
+      "source_claim_ids": [
+        "CLM-DEMO-002-008"
+      ],
+      "command_preview": "lark-cli task +create --profile xtal-writer --as user --dry-run --payload @.tmp/writeback/review-task.json",
+      "payload": {
+        "summary": "复核截止日期，确认飞书 ASR 是否将 2026 识别成 2020",
+        "due_at": "2026-07-18T17:00:00+08:00",
+        "assignee_hint": "USER-DEMO-MANAGER",
+        "status": "todo",
+        "source_claim_id": "CLM-DEMO-002-008",
+        "review_status": "IN_REVIEW"
+      },
+      "redaction": {
+        "resource_tokens_redacted": true,
+        "person_identifiers_redacted": true,
+        "raw_transcript_excluded": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-TASK-002",
+      "target_type": "task_review_action",
+      "operation": "task.create",
+      "profile": "xtal-writer",
+      "identity": "user",
+      "risk_level": "write",
+      "requires_dry_run": true,
+      "requires_confirmation": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:task_review_action:risk-review",
+      "source_claim_ids": [
+        "CLM-DEMO-002-006"
+      ],
+      "command_preview": "lark-cli task +create --profile xtal-writer --as user --dry-run --payload @.tmp/writeback/risk-review-task.json",
+      "payload": {
+        "summary": "复核 EXP-DEMO-002 的高风险实验条件",
+        "due_at": null,
+        "assignee_hint": "reviewer",
+        "status": "todo",
+        "source_claim_ids": [
+          "CLM-DEMO-002-006"
+        ],
+        "review_status": "IN_REVIEW"
+      },
+      "redaction": {
+        "resource_tokens_redacted": true,
+        "person_identifiers_redacted": true,
+        "raw_transcript_excluded": true
+      }
+    },
+    {
+      "command_id": "CMD-DEMO-002-DOCX-001",
+      "target_type": "docx_knowledge_card",
+      "operation": "docx.create",
+      "profile": "xtal-writer",
+      "identity": "user",
+      "risk_level": "write",
+      "requires_dry_run": true,
+      "requires_confirmation": true,
+      "idempotency_key": "MTG-DEMO-002:BND-DEMO-002:writeback-planner-0.1.0:docx_knowledge_card:draft-card",
+      "source_claim_ids": [
+        "CLM-DEMO-002-001",
+        "CLM-DEMO-002-002",
+        "CLM-DEMO-002-003",
+        "CLM-DEMO-002-004",
+        "CLM-DEMO-002-005",
+        "CLM-DEMO-002-006",
+        "CLM-DEMO-002-007",
+        "CLM-DEMO-002-008",
+        "CLM-DEMO-002-009"
+      ],
+      "command_preview": "lark-cli docs +create --profile xtal-writer --as user --dry-run --title '<redacted-demo-title>' --content @.tmp/writeback/knowledge-card.xml",
+      "payload": {
+        "title": "EXP-DEMO-002 知识卡片草稿",
+        "publication_status": "IN_REVIEW",
+        "sections": [
+          {
+            "heading": "结论摘要",
+            "items": [
+              {
+                "claim_id": "CLM-DEMO-002-001",
+                "name": "reaction_temperature",
+                "value": 75,
+                "previous_value": 80,
+                "unit": "Cel",
+                "status": "IN_REVIEW",
+                "raw_text": "主实验改成七十五度"
+              },
+              {
+                "claim_id": "CLM-DEMO-002-002",
+                "name": "reaction_temperature",
+                "value": 80,
+                "previous_value": null,
+                "unit": "Cel",
+                "status": "IN_REVIEW",
+                "raw_text": "八十度只保留小样对照"
+              },
+              {
+                "claim_id": "CLM-DEMO-002-003",
+                "name": "acetonitrile_ratio",
+                "value": 25,
+                "previous_value": 30,
+                "unit": "%",
+                "status": "IN_REVIEW",
+                "raw_text": "乙腈从百分之三十降到百分之二十五"
+              },
+              {
+                "claim_id": "CLM-DEMO-002-004",
+                "name": "stirring_speed",
+                "value": "600 r/min",
+                "previous_value": null,
+                "unit": "r/min",
+                "status": "IN_REVIEW",
+                "raw_text": "建议把搅拌速度提到 600 转"
+              },
+              {
+                "claim_id": "CLM-DEMO-002-005",
+                "name": "stirring_speed",
+                "value": 500,
+                "previous_value": null,
+                "unit": "r/min",
+                "status": "IN_REVIEW",
+                "raw_text": "先按 500 转每分钟执行"
+              }
+            ]
+          },
+          {
+            "heading": "风险与复核",
+            "items": [
+              {
+                "claim_id": "CLM-DEMO-002-006",
+                "summary": "90 摄氏度以上可能出现降解，需要审阅",
+                "flags": [
+                  "uncertain_causality",
+                  "needs_domain_review"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "历史复用线索",
+            "items": [
+              {
+                "claim_id": "CLM-DEMO-002-007",
+                "reference_id": "EXP-HIST-009",
+                "summary": "历史失败案例可作为本轮风险判断的复用证据"
+              }
+            ]
+          },
+          {
+            "heading": "待办",
+            "items": [
+              {
+                "claim_id": "CLM-DEMO-002-008",
+                "summary": "复核截止日期，确认飞书 ASR 是否将 2026 识别成 2020",
+                "due_at": "2026-07-18T17:00:00+08:00"
+              }
+            ]
+          }
+        ],
+        "source_bundle_id": "BND-DEMO-002",
+        "speaker_map": [
+          {
+            "original": "USER-DEMO-MANAGER",
+            "redacted": "SPEAKER-01"
+          },
+          {
+            "original": "USER-DEMO-EXPERIMENT",
+            "redacted": "SPEAKER-02"
+          },
+          {
+            "original": "USER-DEMO-ALGORITHM",
+            "redacted": "SPEAKER-03"
+          },
+          {
+            "original": "USER-DEMO-MATERIALS",
+            "redacted": "SPEAKER-04"
+          }
+        ]
+      },
+      "redaction": {
+        "resource_tokens_redacted": true,
+        "person_identifiers_redacted": true,
+        "raw_transcript_excluded": true
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ This directory contains synthetic fixtures for validating XtalLoop's data contra
 - `extraction-bundle.example.json`: one complete meeting-to-domain-object example.
 - `demo-meeting-transcript.json`: a synthetic multi-utterance meeting transcript for the P0-04 extractor smoke test.
 - `demo-extraction-bundle.generated.json`: deterministic extractor output generated from the demo transcript.
+- `demo-writeback-plan.generated.json`: deterministic P0-05 dry-run writeback plan for Base / Task / Docx.
 
 The fixtures cover parameter changes, ranges, units, negation, unresolved decisions, team controversy, risks, ambiguous assignees, relative deadlines, historical failures and cross-experiment reuse.
 
@@ -23,6 +24,12 @@ Run only the extractor:
 
 ```powershell
 npm run extract:demo
+```
+
+Run only the writeback planner:
+
+```powershell
+npm run plan:writeback
 ```
 
 Do not replace these fixtures with real meeting content unless it has been explicitly authorized and deidentified.
