@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "BND-SYNTH-001",
+  "meeting": {
+    "meeting_id": "MTG-SYNTH-001",
+    "title": "合成研发会议样本 001",
+    "started_at": "2026-07-17T10:00:00+08:00",
+    "ended_at": "2026-07-17T10:30:00+08:00",
+    "source_system": "imported_fixture"
+  },
+  "experiment": {
+    "experiment_id": "EXP-SYNTH-001",
+    "project_id": "PROJECT-SYNTH-001",
+    "experiment_type": "synthesis",
+    "status": "PLANNING"
+  },
+  "parameter_sets": [
+    {
+      "parameter_set_id": "PS-SYNTH-001-V2",
+      "experiment_id": "EXP-SYNTH-001",
+      "version": 2,
+      "verification_status": "VERIFIED",
+      "parameters": [
+        {
+          "name": "reaction_temperature",
+          "value": 75,
+          "unit_ucum": "Cel",
+          "operator": "exact",
+          "raw_text": "主实验改成七十五度"
+        }
+      ]
+    }
+  ],
+  "decisions": [],
+  "controversies": [],
+  "risks": [],
+  "tasks": [],
+  "results": [],
+  "claims": [
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-GS001-01",
+      "meeting_id": "MTG-SYNTH-001",
+      "experiment_id": "EXP-SYNTH-001",
+      "claim_type": "parameter_change",
+      "subject_id": "PS-SYNTH-001-V2",
+      "predicate": "has_reaction_temperature",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "reaction_temperature",
+        "previous_value": 80,
+        "value": 75,
+        "operator": "exact",
+        "unit_ucum": "Cel",
+        "unit_raw": "度",
+        "raw_text": "主实验改成七十五度"
+      },
+      "scope": {
+        "type": "main_run",
+        "description": "主实验"
+      },
+      "source": {
+        "system": "imported_fixture",
+        "meeting_id": "MTG-SYNTH-001",
+        "utterance_id": "UTT-SYNTH-001",
+        "speaker_id": "USER-SYNTH-001",
+        "start_ms": 10000,
+        "end_ms": 18000,
+        "quote": "不是八十度，主实验改成七十五度；八十度只保留做小样对照。",
+        "quote_hash": "sha256:34f9696ddb24dd5c07679f01b89ed0f5f0a82fff30060374de3c1c70ea6b1b94",
+        "source_url": null
+      },
+      "confidence": 1,
+      "verification_status": "VERIFIED",
+      "data_origin": "synthetic",
+      "idempotency_key": "MTG-SYNTH-001:gold-v1:parameter_change:1",
+      "supersedes_claim_id": null,
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "gold-annotation-1.0.0",
+        "prompt": "manual-gold-1.0.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "approved",
+        "reviewed_by": "CURATOR-001",
+        "reviewed_at": "2026-07-17T12:00:00+08:00",
+        "notes": "Synthetic sample, single-review annotation."
+      },
+      "created_at": "2026-07-17T12:00:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-GS001-02",
+      "meeting_id": "MTG-SYNTH-001",
+      "experiment_id": "EXP-SYNTH-001",
+      "claim_type": "parameter",
+      "subject_id": "PS-SYNTH-001-CONTROL",
+      "predicate": "has_reaction_temperature",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "reaction_temperature",
+        "value": 80,
+        "operator": "exact",
+        "unit_ucum": "Cel",
+        "unit_raw": "度",
+        "raw_text": "八十度只保留做小样对照"
+      },
+      "scope": {
+        "type": "control_run",
+        "description": "小样对照"
+      },
+      "source": {
+        "system": "imported_fixture",
+        "meeting_id": "MTG-SYNTH-001",
+        "utterance_id": "UTT-SYNTH-001",
+        "speaker_id": "USER-SYNTH-001",
+        "start_ms": 10000,
+        "end_ms": 18000,
+        "quote": "不是八十度，主实验改成七十五度；八十度只保留做小样对照。",
+        "quote_hash": "sha256:34f9696ddb24dd5c07679f01b89ed0f5f0a82fff30060374de3c1c70ea6b1b94",
+        "source_url": null
+      },
+      "confidence": 1,
+      "verification_status": "VERIFIED",
+      "data_origin": "synthetic",
+      "idempotency_key": "MTG-SYNTH-001:gold-v1:parameter:2",
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "gold-annotation-1.0.0",
+        "prompt": "manual-gold-1.0.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "approved",
+        "reviewed_by": "CURATOR-001",
+        "reviewed_at": "2026-07-17T12:00:00+08:00",
+        "notes": "Synthetic sample, single-review annotation."
+      },
+      "created_at": "2026-07-17T12:00:00+08:00"
+    }
+  ]
+}

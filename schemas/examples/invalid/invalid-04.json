@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "claim_id": "invalid-id",
+  "meeting_id": "MTG-SYNTH-004",
+  "experiment_id": "EXP-SYNTH-004",
+  "claim_type": "parameter",
+  "subject_id": "PS-SYNTH-004-V1",
+  "predicate": "has_reaction_duration",
+  "object": {
+    "value_type": "number",
+    "parameter_name": "reaction_duration",
+    "value": 2,
+    "operator": "approximately",
+    "unit_ucum": "h",
+    "unit_raw": "小时",
+    "raw_text": "大约两小时"
+  },
+  "scope": {
+    "type": "all_runs",
+    "description": "本轮实验"
+  },
+  "source": {
+    "system": "imported_fixture",
+    "meeting_id": "MTG-SYNTH-004",
+    "utterance_id": "UTT-SYNTH-004",
+    "speaker_id": "USER-SYNTH-004",
+    "start_ms": 40000,
+    "end_ms": 48000,
+    "quote": "反应时间先按大约两小时设置。",
+    "quote_hash": "sha256:3f97137386ca34385ae3464c133c8081435c78085455ad58e503d91870ccebaf",
+    "source_url": null
+  },
+  "confidence": 1,
+  "verification_status": "VERIFIED",
+  "data_origin": "synthetic",
+  "idempotency_key": "MTG-SYNTH-004:gold-v1:parameter:1",
+  "flags": [],
+  "relationships": [],
+  "versions": {
+    "extractor": "gold-annotation-1.0.0",
+    "prompt": "manual-gold-1.0.0",
+    "ontology": "xtalloop-core-0.1.0"
+  },
+  "review": {
+    "decision": "approved",
+    "reviewed_by": "CURATOR-001",
+    "reviewed_at": "2026-07-17T12:00:00+08:00",
+    "notes": "Synthetic sample, single-review annotation."
+  },
+  "created_at": "2026-07-17T12:00:00+08:00"
+}

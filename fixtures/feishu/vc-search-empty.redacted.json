@@ -1,0 +1,20 @@
+{
+  "recordedAt": "2026-07-17T22:00:00+08:00",
+  "profile": "xtal-reader",
+  "command": "vc +search",
+  "risk": "read",
+  "request": {
+    "identity": "user",
+    "start": "2026-06-18",
+    "end": "2026-07-17",
+    "pageSize": 30
+  },
+  "response": {
+    "ok": true,
+    "identity": "user",
+    "hasMore": false,
+    "itemCount": 0,
+    "pageToken": "<redacted_page_token>"
+  },
+  "interpretation": "The tenant API and scope check succeeded, but no visible ended meeting was available in the 30-day window."
+}

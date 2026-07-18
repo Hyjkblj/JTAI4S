@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "claim_id": "CLM-GS005-01",
+  "meeting_id": "MTG-SYNTH-005",
+  "experiment_id": "EXP-SYNTH-005",
+  "claim_type": "parameter",
+  "subject_id": "PS-SYNTH-005-MAIN",
+  "predicate": "has_reaction_temperature",
+  "object": {
+    "value_type": "number",
+    "parameter_name": "reaction_temperature",
+    "value": 75,
+    "operator": "exact",
+    "unit_ucum": "Cel",
+    "unit_raw": "度",
+    "raw_text": "主实验用七十五度"
+  },
+  "scope": {
+    "type": "main_run",
+    "description": "主实验"
+  },
+  "source": {
+    "system": "imported_fixture",
+    "meeting_id": "MTG-SYNTH-005",
+    "utterance_id": "UTT-SYNTH-005",
+    "speaker_id": "USER-SYNTH-005",
+    "start_ms": 50000,
+    "end_ms": 58000,
+    "quote": "主实验用七十五度，对照组仍然保持八十度。",
+    "quote_hash": "sha256:5cc3861d861d1994ecd050b8b6bb0e2de82984c14c92a9a367a9b4527051fcf2",
+    "source_url": null
+  },
+  "confidence": 1,
+  "verification_status": "VERIFIED",
+  "data_origin": "synthetic",
+  "idempotency_key": "MTG-SYNTH-005:gold-v1:parameter:1",
+  "flags": [],
+  "relationships": [],
+  "versions": {
+    "extractor": "gold-annotation-1.0.0",
+    "prompt": "manual-gold-1.0.0",
+    "ontology": "xtalloop-core-0.1.0"
+  },
+  "review": {
+    "decision": "approved",
+    "reviewed_by": "CURATOR-001",
+    "reviewed_at": "2026-07-17T12:00:00+08:00",
+    "notes": "Synthetic sample, single-review annotation."
+  },
+  "created_at": "2026-07-17T12:00:00+08:00"
+}

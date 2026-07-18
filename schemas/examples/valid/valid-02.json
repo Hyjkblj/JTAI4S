@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "claim_id": "CLM-GS002-01",
+  "meeting_id": "MTG-SYNTH-002",
+  "experiment_id": "EXP-SYNTH-002",
+  "claim_type": "parameter_change",
+  "subject_id": "PS-SYNTH-002-V3",
+  "predicate": "has_acetonitrile_ratio",
+  "object": {
+    "value_type": "number",
+    "parameter_name": "acetonitrile_ratio",
+    "previous_value": 30,
+    "value": 25,
+    "operator": "exact",
+    "unit_ucum": "%",
+    "unit_raw": "体积百分比",
+    "raw_text": "乙腈从百分之三十降到百分之二十五"
+  },
+  "scope": {
+    "type": "all_runs",
+    "description": "本批次全部运行"
+  },
+  "source": {
+    "system": "imported_fixture",
+    "meeting_id": "MTG-SYNTH-002",
+    "utterance_id": "UTT-SYNTH-002",
+    "speaker_id": "USER-SYNTH-002",
+    "start_ms": 20000,
+    "end_ms": 28000,
+    "quote": "流动相里的乙腈从百分之三十降到百分之二十五，体积比。",
+    "quote_hash": "sha256:17f1842291d905bb94d804021078dce3df3afd0c6d1e9ea68e39c69e62a7c6a8",
+    "source_url": null
+  },
+  "confidence": 1,
+  "verification_status": "VERIFIED",
+  "data_origin": "synthetic",
+  "idempotency_key": "MTG-SYNTH-002:gold-v1:parameter_change:1",
+  "supersedes_claim_id": null,
+  "flags": [],
+  "relationships": [],
+  "versions": {
+    "extractor": "gold-annotation-1.0.0",
+    "prompt": "manual-gold-1.0.0",
+    "ontology": "xtalloop-core-0.1.0"
+  },
+  "review": {
+    "decision": "approved",
+    "reviewed_by": "CURATOR-001",
+    "reviewed_at": "2026-07-17T12:00:00+08:00",
+    "notes": "Synthetic sample, single-review annotation."
+  },
+  "created_at": "2026-07-17T12:00:00+08:00"
+}

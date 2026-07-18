@@ -1,0 +1,106 @@
+{
+  "kind": "feishu_writeback_validation",
+  "date": "2026-07-18",
+  "cli": "lark-cli 1.0.72",
+  "profile": "xtal-writer",
+  "identity": "user",
+  "authorization": {
+    "app_profile_is_separate_from_reader": true,
+    "scopes_used": [
+      "docx:document:create",
+      "docx:document:readonly",
+      "task:task:write",
+      "base:app:create",
+      "base:table:read",
+      "base:table:create",
+      "base:table:update",
+      "base:table:delete",
+      "base:record:create",
+      "base:record:update",
+      "base:record:read"
+    ],
+    "redacted": [
+      "app_id",
+      "app_secret",
+      "open_id",
+      "user_name",
+      "access_token",
+      "refresh_token",
+      "device_code",
+      "verification_url"
+    ]
+  },
+  "preflight": {
+    "dry_run_required_before_write": true,
+    "base_create_dry_run_ok": true,
+    "base_record_create_dry_run_ok": true,
+    "task_create_dry_run_ok": true,
+    "doc_create_dry_run_ok": true
+  },
+  "created_objects": {
+    "base": {
+      "ok": true,
+      "title": "AI实验研发加速器-写回验证",
+      "table": "结论审阅台",
+      "field_count": 12,
+      "default_table_deleted": true,
+      "resource_url": "<redacted>"
+    },
+    "base_record": {
+      "ok": true,
+      "experiment_id": "EXP-DEMO-002",
+      "status": "IN_REVIEW",
+      "main_temperature_c": 75,
+      "control_temperature_c": 80,
+      "volume_ratio_before_pct": 30,
+      "volume_ratio_after_pct": 25,
+      "suggested_stirring_rpm": 600,
+      "final_stirring_rpm": 500,
+      "risk": "90 C以上可能降解；会议ASR把2026误识别为2020，需人工复核。",
+      "review_due_at": "2026-07-18 17:00:00",
+      "date_asr_mismatch_requires_review": true,
+      "resource_id": "<redacted>"
+    },
+    "task": {
+      "ok": true,
+      "summary": "复核 EXP-DEMO-002 参数结论与ASR日期异常",
+      "status": "todo",
+      "due_date": "2026-07-18",
+      "assignee": "<current_authorized_user_redacted>",
+      "resource_url": "<redacted>"
+    },
+    "document": {
+      "ok": true,
+      "title": "EXP-DEMO-002 知识卡片",
+      "sections": [
+        "结论摘要",
+        "风险与复核",
+        "联动对象",
+        "复用建议"
+      ],
+      "resource_url": "<redacted>"
+    }
+  },
+  "readback": {
+    "base_record_readback_ok": true,
+    "base_record_has_more": false,
+    "task_readback_ok": true,
+    "task_status": "todo",
+    "doc_readback_ok": true,
+    "doc_contains_base_link_text": true,
+    "doc_contains_task_link_text": true,
+    "doc_contains_asr_mismatch_flag": true
+  },
+  "observations": [
+    "写回链路可用：Base、任务、Docx 均完成真实创建并读回。",
+    "Base 与 Docx 的读权限需要在写权限之外单独授权，用于事后校验。",
+    "任务写入使用 idempotency-key，降低重复执行导致重复任务的风险。",
+    "复杂 JSON/XML 在 Windows PowerShell 下优先通过 @file 传入，避免空格和引号被拆分。"
+  ],
+  "security": {
+    "raw_responses_committed": false,
+    "raw_transcript_committed": false,
+    "real_resource_tokens_committed": false,
+    "real_person_identifiers_committed": false
+  }
+}

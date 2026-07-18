@@ -1,0 +1,444 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xtalloop.local/schemas/extraction-bundle.schema.json",
+  "title": "XtalLoop Meeting Extraction Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "meeting",
+    "experiment",
+    "parameter_sets",
+    "decisions",
+    "controversies",
+    "risks",
+    "tasks",
+    "results",
+    "claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^BND-[A-Z0-9-]{4,}$"
+    },
+    "meeting": {
+      "$ref": "#/$defs/meeting"
+    },
+    "experiment": {
+      "$ref": "#/$defs/experiment"
+    },
+    "parameter_sets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/parameterSet"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    },
+    "controversies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/controversy"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/task"
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/result"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "./scientific-claim.schema.json"
+      }
+    }
+  },
+  "$defs": {
+    "meeting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meeting_id",
+        "title",
+        "started_at",
+        "ended_at",
+        "source_system"
+      ],
+      "properties": {
+        "meeting_id": {
+          "type": "string",
+          "pattern": "^MTG-[A-Z0-9-]{4,}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_system": {
+          "enum": [
+            "feishu_vc",
+            "feishu_minutes",
+            "imported_fixture"
+          ]
+        }
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "experiment_id",
+        "project_id",
+        "experiment_type",
+        "status"
+      ],
+      "properties": {
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[A-Z0-9-]{4,}$"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "experiment_type": {
+          "enum": [
+            "synthesis",
+            "crystal_screening",
+            "activity_assay",
+            "other"
+          ]
+        },
+        "status": {
+          "enum": [
+            "PLANNING",
+            "READY",
+            "RUNNING",
+            "REVIEW",
+            "COMPLETED",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "parameterSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter_set_id",
+        "experiment_id",
+        "version",
+        "verification_status",
+        "parameters"
+      ],
+      "properties": {
+        "parameter_set_id": {
+          "type": "string",
+          "pattern": "^PS-[A-Z0-9-]{4,}$"
+        },
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[A-Z0-9-]{4,}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "verification_status": {
+          "enum": [
+            "DRAFT",
+            "IN_REVIEW",
+            "VERIFIED",
+            "REJECTED",
+            "SUPERSEDED"
+          ]
+        },
+        "parameters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "value",
+              "unit_ucum",
+              "operator",
+              "raw_text"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "string",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "unit_ucum": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "operator": {
+                "enum": [
+                  "exact",
+                  "approximately",
+                  "at_least",
+                  "at_most",
+                  "range",
+                  "none"
+                ]
+              },
+              "raw_text": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "claim_id",
+        "status",
+        "selected_proposal_id",
+        "rationale"
+      ],
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^DEC-[A-Z0-9-]{4,}$"
+        },
+        "claim_id": {
+          "type": "string",
+          "pattern": "^CLM-[A-Z0-9-]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "approved",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "selected_proposal_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "controversy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controversy_id",
+        "status",
+        "position_claim_ids",
+        "resolved_by_decision_id"
+      ],
+      "properties": {
+        "controversy_id": {
+          "type": "string",
+          "pattern": "^CONT-[A-Z0-9-]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "RESOLVED"
+          ]
+        },
+        "position_claim_ids": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CLM-[A-Z0-9-]{4,}$"
+          }
+        },
+        "resolved_by_decision_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_id",
+        "claim_id",
+        "severity",
+        "likelihood",
+        "mitigation_task_id"
+      ],
+      "properties": {
+        "risk_id": {
+          "type": "string",
+          "pattern": "^RISK-[A-Z0-9-]{4,}$"
+        },
+        "claim_id": {
+          "type": "string",
+          "pattern": "^CLM-[A-Z0-9-]{4,}$"
+        },
+        "severity": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "CRITICAL",
+            "UNKNOWN"
+          ]
+        },
+        "likelihood": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "UNKNOWN"
+          ]
+        },
+        "mitigation_task_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "claim_id",
+        "summary",
+        "assignee_id",
+        "due_at",
+        "status"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "pattern": "^TASK-[A-Z0-9-]{4,}$"
+        },
+        "claim_id": {
+          "type": "string",
+          "pattern": "^CLM-[A-Z0-9-]{4,}$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 2
+        },
+        "assignee_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "due_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "OPEN",
+            "DONE",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_id",
+        "experiment_id",
+        "run_id",
+        "status",
+        "artifact_uri",
+        "metrics"
+      ],
+      "properties": {
+        "result_id": {
+          "type": "string",
+          "pattern": "^RESULT-[A-Z0-9-]{4,}$"
+        },
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[A-Z0-9-]{4,}$"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "status": {
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAILURE",
+            "INCONCLUSIVE"
+          ]
+        },
+        "artifact_uri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "metrics": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "claim_id": "CLM-GS001-01",
+  "meeting_id": "MTG-SYNTH-001",
+  "experiment_id": "EXP-SYNTH-001",
+  "claim_type": "parameter_change",
+  "subject_id": "PS-SYNTH-001-V2",
+  "predicate": "has_reaction_temperature",
+  "object": {
+    "value_type": "number",
+    "parameter_name": "reaction_temperature",
+    "previous_value": 80,
+    "value": 75,
+    "operator": "exact",
+    "unit_ucum": "Cel",
+    "unit_raw": "度",
+    "raw_text": "主实验改成七十五度"
+  },
+  "scope": {
+    "type": "main_run",
+    "description": "主实验"
+  },
+  "confidence": 1,
+  "verification_status": "VERIFIED",
+  "data_origin": "synthetic",
+  "idempotency_key": "MTG-SYNTH-001:gold-v1:parameter_change:1",
+  "supersedes_claim_id": null,
+  "flags": [],
+  "relationships": [],
+  "versions": {
+    "extractor": "gold-annotation-1.0.0",
+    "prompt": "manual-gold-1.0.0",
+    "ontology": "xtalloop-core-0.1.0"
+  },
+  "review": {
+    "decision": "approved",
+    "reviewed_by": "CURATOR-001",
+    "reviewed_at": "2026-07-17T12:00:00+08:00",
+    "notes": "Synthetic sample, single-review annotation."
+  },
+  "created_at": "2026-07-17T12:00:00+08:00"
+}

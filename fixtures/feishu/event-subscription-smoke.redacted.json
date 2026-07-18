@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-07-17T22:03:00+08:00",
+  "profile": "xtal-reader",
+  "identity": "user",
+  "timeoutSeconds": 30,
+  "observations": [
+    {
+      "eventKey": "vc.meeting.participant_meeting_ended_v1",
+      "scope": "vc:meeting.meetingevent:read",
+      "ready": true,
+      "websocketConnected": true,
+      "receivedEvents": 0,
+      "cleanupCompleted": true,
+      "exitCode": 0,
+      "exitReason": "timeout"
+    },
+    {
+      "eventKey": "vc.note.generated_v1",
+      "scope": "vc:note:read",
+      "ready": true,
+      "websocketConnected": true,
+      "receivedEvents": 0,
+      "cleanupCompleted": true,
+      "exitCode": 0,
+      "exitReason": "timeout"
+    },
+    {
+      "eventKey": "minutes.minute.generated_v1",
+      "scope": "minutes:minutes.basic:read",
+      "ready": true,
+      "websocketConnected": true,
+      "receivedEvents": 0,
+      "cleanupCompleted": true,
+      "exitCode": 0,
+      "exitReason": "timeout"
+    }
+  ],
+  "interpretation": "All subscriptions completed setup, readiness, bounded exit, and cleanup. No event payload was produced during the idle test window."
+}

@@ -1,0 +1,23 @@
+node_modules/
+coverage/
+dist/
+build/
+.cache/
+.tmp/
+
+.env
+.env.*
+!.env.example
+
+*.log
+*.pid
+*.tmp
+
+.DS_Store
+Thumbs.db
+
+# Local Feishu credentials and exported sensitive artifacts
+.lark-cli/
+fixtures/feishu/private/
+fixtures/feishu/raw/
+

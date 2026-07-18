@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-07-17T23:16:28+08:00",
+  "cliVersion": "1.0.72",
+  "profile": "xtal-reader",
+  "identity": "user",
+  "verified": true,
+  "identities": {
+    "bot": {
+      "status": "ready",
+      "verified": true,
+      "appId": "<redacted_app_id>",
+      "openId": "<redacted_bot_open_id>"
+    },
+    "user": {
+      "status": "ready",
+      "verified": true,
+      "tokenStatus": "valid",
+      "userName": "<redacted_user_name>",
+      "openId": "<redacted_user_open_id>",
+      "scopes": [
+        "minutes:minutes.artifacts:read",
+        "minutes:minutes.basic:read",
+        "vc:meeting.meetingevent:read",
+        "vc:meeting.search:read",
+        "vc:note:read",
+        "vc:record:readonly"
+      ]
+    }
+  }
+}

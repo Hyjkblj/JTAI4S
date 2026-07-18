@@ -1,0 +1,17 @@
+{
+  "name": "xtalloop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-first AI research workflow accelerator prototype.",
+  "type": "module",
+  "scripts": {
+    "generate:golden-set": "node scripts/generate-golden-set.mjs",
+    "validate:artifacts": "node scripts/validate-artifacts.mjs",
+    "test": "npm run generate:golden-set && npm run validate:artifacts"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  }
+}
+

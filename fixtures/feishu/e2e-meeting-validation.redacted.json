@@ -1,0 +1,86 @@
+{
+  "recordedAt": "2026-07-17T23:20:00+08:00",
+  "profile": "xtal-reader",
+  "transportDataOrigin": "real_authorized",
+  "scenarioDataOrigin": "synthetic",
+  "privacy": {
+    "containsRawTranscript": false,
+    "containsPersonName": false,
+    "containsMeetingId": false,
+    "containsDocumentToken": false
+  },
+  "meeting": {
+    "durationSeconds": 199,
+    "eventKeysReceived": [
+      "vc.meeting.participant_meeting_ended_v1",
+      "vc.note.generated_v1",
+      "minutes.minute.generated_v1"
+    ],
+    "noteGenerationLatencySeconds": 106.279,
+    "minutesGenerationLatencySeconds": 90.377,
+    "eventMeetingAssociationsMatch": true
+  },
+  "artifacts": {
+    "noteDisplayType": "normal",
+    "noteDetailReadable": true,
+    "minutesSummaryPresent": true,
+    "minutesTranscriptPresent": true,
+    "minutesTranscriptHasSpeaker": true,
+    "minutesTranscriptHasRelativeTimestamp": true,
+    "minutesTranscriptDurationSeconds": 74,
+    "minutesKeywordCount": 5,
+    "minutesTodoCount": 0,
+    "minutesChapterCount": 0
+  },
+  "extractionChecks": [
+    {
+      "field": "experiment_id",
+      "status": "normalization_required",
+      "issue": "ASR inserted spaces into the synthetic identifier."
+    },
+    {
+      "field": "main_temperature_celsius",
+      "expected": 75,
+      "observed": 75,
+      "status": "pass"
+    },
+    {
+      "field": "control_temperature_celsius",
+      "expected": 80,
+      "observed": 80,
+      "status": "pass"
+    },
+    {
+      "field": "volume_ratio_percent",
+      "expectedChange": [30, 25],
+      "observedChange": [30, 25],
+      "status": "pass"
+    },
+    {
+      "field": "proposed_stirring_speed_rpm",
+      "expected": 600,
+      "observed": 600,
+      "decisionState": "proposal_not_decided",
+      "status": "pass"
+    },
+    {
+      "field": "decided_stirring_speed_rpm",
+      "expected": 500,
+      "observed": 500,
+      "status": "pass"
+    },
+    {
+      "field": "degradation_risk_threshold_celsius",
+      "expected": 90,
+      "observed": 90,
+      "status": "pass"
+    },
+    {
+      "field": "task_due_year",
+      "expected": 2026,
+      "observed": 2020,
+      "status": "asr_error_requires_review"
+    }
+  ],
+  "conclusion": "The read-side E2E path is viable. Identifiers, dates, and task publication require normalization and human review."
+}

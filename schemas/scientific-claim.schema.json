@@ -1,0 +1,541 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xtalloop.local/schemas/scientific-claim.schema.json",
+  "title": "XtalLoop Scientific Claim",
+  "description": "A traceable, reviewable scientific claim extracted from a meeting or experiment artifact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_id",
+    "meeting_id",
+    "experiment_id",
+    "claim_type",
+    "subject_id",
+    "predicate",
+    "object",
+    "scope",
+    "source",
+    "confidence",
+    "verification_status",
+    "data_origin",
+    "idempotency_key",
+    "flags",
+    "versions",
+    "review",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^CLM-[A-Z0-9-]{4,}$"
+    },
+    "meeting_id": {
+      "type": "string",
+      "pattern": "^MTG-[A-Z0-9-]{4,}$"
+    },
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[A-Z0-9-]{4,}$"
+    },
+    "claim_type": {
+      "$ref": "#/$defs/claimType"
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128
+    },
+    "predicate": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,63}$"
+    },
+    "object": {
+      "$ref": "#/$defs/claimObject"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "source": {
+      "$ref": "#/$defs/sourceAnchor"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "verification_status": {
+      "enum": [
+        "DRAFT",
+        "IN_REVIEW",
+        "VERIFIED",
+        "REJECTED",
+        "SUPERSEDED",
+        "DISPUTED"
+      ]
+    },
+    "data_origin": {
+      "enum": [
+        "synthetic",
+        "deidentified",
+        "real_authorized"
+      ]
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 256
+    },
+    "supersedes_claim_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^CLM-[A-Z0-9-]{4,}$"
+    },
+    "flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "ambiguous_negation",
+          "ambiguous_person",
+          "conflicting_claim",
+          "missing_due_date",
+          "missing_experiment_id",
+          "missing_unit",
+          "needs_domain_review",
+          "possible_duplicate_failure",
+          "relative_time",
+          "uncertain_causality",
+          "unresolved_decision"
+        ]
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "versions": {
+      "$ref": "#/$defs/versions"
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "claim_type": {
+            "enum": [
+              "parameter",
+              "parameter_change"
+            ]
+          }
+        },
+        "required": [
+          "claim_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "parameter_name": true
+            },
+            "required": [
+              "parameter_name"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "claim_type": {
+            "const": "parameter_change"
+          }
+        },
+        "required": [
+          "claim_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "previous_value": true
+            },
+            "required": [
+              "previous_value"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "claim_type": {
+            "const": "task"
+          }
+        },
+        "required": [
+          "claim_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "action_text": true
+            },
+            "required": [
+              "action_text"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "enum": [
+                  "approved",
+                  "modified"
+                ]
+              },
+              "reviewed_by": {
+                "type": "string",
+                "minLength": 3
+              },
+              "reviewed_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "claimType": {
+      "enum": [
+        "fact",
+        "parameter",
+        "parameter_change",
+        "proposal",
+        "decision",
+        "controversy",
+        "risk",
+        "task",
+        "result",
+        "failure_case",
+        "insight"
+      ]
+    },
+    "claimObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_type",
+        "raw_text"
+      ],
+      "properties": {
+        "value_type": {
+          "enum": [
+            "number",
+            "range",
+            "text",
+            "boolean",
+            "reference"
+          ]
+        },
+        "parameter_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "previous_value": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "lower_bound": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "upper_bound": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "operator": {
+          "enum": [
+            "exact",
+            "approximately",
+            "at_least",
+            "at_most",
+            "range",
+            "not_equal",
+            "none"
+          ]
+        },
+        "unit_ucum": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 32
+        },
+        "unit_raw": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 64
+        },
+        "normalized_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "action_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assignee_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "due_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "description"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "main_run",
+            "control_run",
+            "all_runs",
+            "experiment",
+            "project",
+            "unspecified"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "sourceAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system",
+        "meeting_id",
+        "utterance_id",
+        "speaker_id",
+        "start_ms",
+        "end_ms",
+        "quote"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "feishu_vc",
+            "feishu_minutes",
+            "imported_fixture"
+          ]
+        },
+        "meeting_id": {
+          "type": "string",
+          "pattern": "^MTG-[A-Z0-9-]{4,}$"
+        },
+        "utterance_id": {
+          "type": "string",
+          "pattern": "^UTT-[A-Z0-9-]{4,}$"
+        },
+        "speaker_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "start_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "predicate",
+        "target_id"
+      ],
+      "properties": {
+        "predicate": {
+          "enum": [
+            "SUPPORTS",
+            "OPPOSES",
+            "SUPERSEDES",
+            "DERIVED_FROM",
+            "TRIGGERS",
+            "SIMILAR_TO",
+            "EXPLAINS"
+          ]
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extractor",
+        "prompt",
+        "ontology"
+      ],
+      "properties": {
+        "extractor": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "ontology": {
+          "type": "string"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "reviewed_by",
+        "reviewed_at",
+        "notes"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "pending",
+            "approved",
+            "modified",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

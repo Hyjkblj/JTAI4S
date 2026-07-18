@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "claim_id": "CLM-GS003-01",
+  "meeting_id": "MTG-SYNTH-003",
+  "experiment_id": "EXP-SYNTH-003",
+  "claim_type": "parameter",
+  "subject_id": "PS-SYNTH-003-V1",
+  "predicate": "has_buffer_ph",
+  "object": {
+    "value_type": "range",
+    "parameter_name": "buffer_ph",
+    "lower_bound": 7.2,
+    "upper_bound": 7.4,
+    "operator": "range",
+    "unit_ucum": "1",
+    "unit_raw": "pH",
+    "raw_text": "pH 控制在 7.2 到 7.4 之间"
+  },
+  "scope": {
+    "type": "all_runs",
+    "description": "全部运行"
+  },
+  "source": {
+    "system": "imported_fixture",
+    "meeting_id": "MTG-SYNTH-003",
+    "utterance_id": "UTT-SYNTH-003",
+    "speaker_id": "USER-SYNTH-003",
+    "start_ms": 30000,
+    "end_ms": 38000,
+    "quote": "缓冲液 pH 控制在 7.2 到 7.4 之间。",
+    "quote_hash": "sha256:53537e00afb49ef9c86081c12d00f13fda7e99367a233d729371ab5610f96bb5",
+    "source_url": null
+  },
+  "confidence": 1.5,
+  "verification_status": "VERIFIED",
+  "data_origin": "synthetic",
+  "idempotency_key": "MTG-SYNTH-003:gold-v1:parameter:1",
+  "flags": [],
+  "relationships": [],
+  "versions": {
+    "extractor": "gold-annotation-1.0.0",
+    "prompt": "manual-gold-1.0.0",
+    "ontology": "xtalloop-core-0.1.0"
+  },
+  "review": {
+    "decision": "approved",
+    "reviewed_by": "CURATOR-001",
+    "reviewed_at": "2026-07-17T12:00:00+08:00",
+    "notes": "Synthetic sample, single-review annotation."
+  },
+  "created_at": "2026-07-17T12:00:00+08:00"
+}
