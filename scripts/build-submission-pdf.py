@@ -971,7 +971,7 @@ def build_pdf(input_path: Path, output_path: Path) -> None:
         raise FileNotFoundError(f"Source draft not found: {input_path}")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    pdf = canvas.Canvas(str(output_path), pagesize=landscape(A4))
+    pdf = canvas.Canvas(str(output_path), pagesize=landscape(A4), invariant=1)
     pdf.setTitle("XtalLoop 开题补充材料")
     pdf.setAuthor("XtalLoop")
     pdf.setSubject("AI 实验研发加速器海选补充材料")
