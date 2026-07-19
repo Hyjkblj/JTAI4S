@@ -11,6 +11,7 @@
     "demo:e2e": "npm run normalize:minutes && npm run extract:demo && npm run plan:writeback && npm run execute:writeback && npm run report:demo",
     "execute:writeback": "node scripts/execute-writeback-plan.mjs --input evaluation/demo-writeback-plan.generated.json --output evaluation/demo-writeback-execution-log.generated.json --mode simulate",
     "normalize:minutes": "node scripts/normalize-feishu-minutes.mjs --input fixtures/feishu/minutes-detail-transcript.sample.redacted.json --output evaluation/demo-meeting-transcript.normalized-from-minutes.json --meeting-id MTG-DEMO-002 --experiment-id EXP-DEMO-002 --project-id PROJECT-XTALLOOP-DEMO --started-at 2026-07-18T10:00:00+08:00 --ended-at 2026-07-18T10:08:00+08:00",
+    "obsidian:export": "node scripts/export-obsidian-vault.mjs --input evaluation/demo-extraction-bundle.generated.json --output output/obsidian-vault --install-plugin",
     "pdf:submission": "python scripts/build-submission-pdf.py --input docs/XtalLoop_开题补充材料_内容底稿.md --output output/pdf/XtalLoop_开题补充材料.pdf",
     "plan:writeback": "node scripts/plan-feishu-writeback.mjs --input evaluation/demo-extraction-bundle.generated.json --output evaluation/demo-writeback-plan.generated.json",
     "report:demo": "node scripts/build-demo-report.mjs --transcript evaluation/demo-meeting-transcript.normalized-from-minutes.json --bundle evaluation/demo-extraction-bundle.generated.json --plan evaluation/demo-writeback-plan.generated.json --execution-log evaluation/demo-writeback-execution-log.generated.json --output evaluation/demo-e2e-report.md",

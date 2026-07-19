@@ -1,0 +1,10 @@
+{
+  "id": "xtalloop-importer",
+  "name": "XtalLoop Importer",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Import XtalLoop extraction bundles into Obsidian as evidence-linked research knowledge cards.",
+  "author": "XtalLoop",
+  "authorUrl": "https://github.com/Hyjkblj/JTAI4S",
+  "isDesktopOnly": false
+}

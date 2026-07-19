@@ -1,0 +1,574 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "BND-DEMO-002",
+  "meeting": {
+    "meeting_id": "MTG-DEMO-002",
+    "title": "AI实验研发加速器 P0-06 飞书妙记适配演示",
+    "started_at": "2026-07-18T10:00:00+08:00",
+    "ended_at": "2026-07-18T10:08:00+08:00",
+    "source_system": "feishu_minutes"
+  },
+  "experiment": {
+    "experiment_id": "EXP-DEMO-002",
+    "project_id": "PROJECT-XTALLOOP-DEMO",
+    "experiment_type": "synthesis",
+    "status": "PLANNING"
+  },
+  "parameter_sets": [
+    {
+      "parameter_set_id": "PS-DEMO-002-DRAFT",
+      "experiment_id": "EXP-DEMO-002",
+      "version": 1,
+      "verification_status": "IN_REVIEW",
+      "parameters": [
+        {
+          "name": "reaction_temperature",
+          "value": 75,
+          "unit_ucum": "Cel",
+          "operator": "exact",
+          "raw_text": "主实验改成七十五度"
+        },
+        {
+          "name": "reaction_temperature",
+          "value": 80,
+          "unit_ucum": "Cel",
+          "operator": "exact",
+          "raw_text": "八十度只保留小样对照"
+        },
+        {
+          "name": "acetonitrile_ratio",
+          "value": 25,
+          "unit_ucum": "%",
+          "operator": "exact",
+          "raw_text": "乙腈从百分之三十降到百分之二十五"
+        },
+        {
+          "name": "stirring_speed",
+          "value": 500,
+          "unit_ucum": "r/min",
+          "operator": "exact",
+          "raw_text": "先按 500 转每分钟执行"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "DEC-DEMO-002-001",
+      "claim_id": "CLM-DEMO-002-005",
+      "status": "candidate",
+      "selected_proposal_id": "DEC-DEMO-002-STIR-500",
+      "rationale": "先按 500 转每分钟执行"
+    }
+  ],
+  "controversies": [
+    {
+      "controversy_id": "CONT-DEMO-002-001",
+      "status": "RESOLVED",
+      "position_claim_ids": [
+        "CLM-DEMO-002-004",
+        "CLM-DEMO-002-005"
+      ],
+      "resolved_by_decision_id": "DEC-DEMO-002-001"
+    },
+    {
+      "controversy_id": "CONT-DEMO-002-002",
+      "status": "OPEN",
+      "position_claim_ids": [
+        "CLM-DEMO-002-009",
+        "CLM-DEMO-002-004"
+      ],
+      "resolved_by_decision_id": null
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "RISK-DEMO-002-001",
+      "claim_id": "CLM-DEMO-002-006",
+      "severity": "HIGH",
+      "likelihood": "UNKNOWN",
+      "mitigation_task_id": null
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "TASK-DEMO-002-001",
+      "claim_id": "CLM-DEMO-002-008",
+      "summary": "复核截止日期，确认飞书 ASR 是否将 2026 识别成 2020",
+      "assignee_id": "USER-DEMO-MANAGER",
+      "due_at": "2026-07-18T17:00:00+08:00",
+      "status": "DRAFT"
+    }
+  ],
+  "results": [],
+  "claims": [
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-001",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "parameter_change",
+      "subject_id": "PS-DEMO-002-MAIN",
+      "predicate": "has_reaction_temperature",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "reaction_temperature",
+        "previous_value": 80,
+        "value": 75,
+        "operator": "exact",
+        "unit_ucum": "Cel",
+        "unit_raw": "度",
+        "raw_text": "主实验改成七十五度"
+      },
+      "scope": {
+        "type": "main_run",
+        "description": "主实验"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-001",
+        "speaker_id": "SPEAKER-01",
+        "start_ms": 10000,
+        "end_ms": 28000,
+        "quote": "实验编号 EXP-DEMO-002，本轮做合成条件复核；不是八十度，主实验改成七十五度，八十度只保留小样对照。",
+        "quote_hash": "sha256:eee485f974d0e8669ecc28e4d5f5a3c62d8b60295e5a1afde0dfe1dd5dabe704",
+        "source_url": null
+      },
+      "confidence": 0.92,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-001:parameter_change:has_reaction_temperature:1",
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-002",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "parameter",
+      "subject_id": "PS-DEMO-002-CONTROL",
+      "predicate": "has_reaction_temperature",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "reaction_temperature",
+        "value": 80,
+        "operator": "exact",
+        "unit_ucum": "Cel",
+        "unit_raw": "度",
+        "raw_text": "八十度只保留小样对照"
+      },
+      "scope": {
+        "type": "control_run",
+        "description": "小样对照"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-001",
+        "speaker_id": "SPEAKER-01",
+        "start_ms": 10000,
+        "end_ms": 28000,
+        "quote": "实验编号 EXP-DEMO-002，本轮做合成条件复核；不是八十度，主实验改成七十五度，八十度只保留小样对照。",
+        "quote_hash": "sha256:eee485f974d0e8669ecc28e4d5f5a3c62d8b60295e5a1afde0dfe1dd5dabe704",
+        "source_url": null
+      },
+      "confidence": 0.9,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-001:parameter:has_reaction_temperature:2",
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-003",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "parameter_change",
+      "subject_id": "PS-DEMO-002-MOBILE-PHASE",
+      "predicate": "has_acetonitrile_ratio",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "acetonitrile_ratio",
+        "previous_value": 30,
+        "value": 25,
+        "operator": "exact",
+        "unit_ucum": "%",
+        "unit_raw": "体积百分比",
+        "raw_text": "乙腈从百分之三十降到百分之二十五"
+      },
+      "scope": {
+        "type": "all_runs",
+        "description": "流动相体积比"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-002",
+        "speaker_id": "SPEAKER-02",
+        "start_ms": 30000,
+        "end_ms": 42000,
+        "quote": "流动相乙腈从百分之三十降到百分之二十五，按体积比记录。",
+        "quote_hash": "sha256:76c7b7fc80fc540bdf40d4204ff75a7bea8364a47543cf0442a34233ff488957",
+        "source_url": null
+      },
+      "confidence": 0.9,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-002:parameter_change:has_acetonitrile_ratio:3",
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-004",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "proposal",
+      "subject_id": "PROP-DEMO-002-STIR-600",
+      "predicate": "proposes_parameter_change",
+      "object": {
+        "value_type": "text",
+        "parameter_name": "stirring_speed",
+        "value": "600 r/min",
+        "operator": "none",
+        "unit_ucum": "r/min",
+        "unit_raw": "转",
+        "normalized_text": "建议将搅拌速度调整为 600 r/min，尚未决策",
+        "raw_text": "建议把搅拌速度提到 600 转"
+      },
+      "scope": {
+        "type": "experiment",
+        "description": "候选搅拌条件"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-003",
+        "speaker_id": "SPEAKER-03",
+        "start_ms": 44000,
+        "end_ms": 56000,
+        "quote": "我建议把搅拌速度提到 600 转，但这只是建议，今天先不定。",
+        "quote_hash": "sha256:984ca1c7948ad1c0c864856a1367e89b61cbf839c82fa778486145036faece66",
+        "source_url": null
+      },
+      "confidence": 0.82,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-003:proposal:proposes_parameter_change:4",
+      "flags": [
+        "unresolved_decision"
+      ],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-005",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "decision",
+      "subject_id": "DEC-DEMO-002-STIR-500",
+      "predicate": "sets_final_stirring_speed",
+      "object": {
+        "value_type": "number",
+        "parameter_name": "stirring_speed",
+        "value": 500,
+        "operator": "exact",
+        "unit_ucum": "r/min",
+        "unit_raw": "转每分钟",
+        "raw_text": "先按 500 转每分钟执行"
+      },
+      "scope": {
+        "type": "experiment",
+        "description": "本轮执行方案"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-004",
+        "speaker_id": "SPEAKER-01",
+        "start_ms": 58000,
+        "end_ms": 72000,
+        "quote": "最终不要直接用 600 转，先按 500 转每分钟执行，结果复盘后再调。",
+        "quote_hash": "sha256:dc79aed15bc5f3bbcad09430202bd16383be710d8ddfcb7239f263cb902178ab",
+        "source_url": null
+      },
+      "confidence": 0.88,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-004:decision:sets_final_stirring_speed:5",
+      "flags": [],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-006",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "risk",
+      "subject_id": "RISK-DEMO-002-DEGRADATION",
+      "predicate": "warns_degradation_risk",
+      "object": {
+        "value_type": "text",
+        "value": "90 Cel 以上可能出现降解",
+        "operator": "none",
+        "unit_ucum": "Cel",
+        "unit_raw": "摄氏度",
+        "normalized_text": "90 摄氏度以上可能出现降解，需要审阅",
+        "raw_text": "90 摄氏度以上可能出现降解"
+      },
+      "scope": {
+        "type": "experiment",
+        "description": "温度风险"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-005",
+        "speaker_id": "SPEAKER-02",
+        "start_ms": 74000,
+        "end_ms": 90000,
+        "quote": "90 摄氏度以上可能出现降解，这个作为高风险提示写进审阅台。",
+        "quote_hash": "sha256:9612c80a37bee3e24a1906717742d52f8286527fa5dc4b5d8002b923aaccba7a",
+        "source_url": null
+      },
+      "confidence": 0.86,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-005:risk:warns_degradation_risk:6",
+      "flags": [
+        "uncertain_causality",
+        "needs_domain_review"
+      ],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-007",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "insight",
+      "subject_id": "INSIGHT-DEMO-002-HIST-009",
+      "predicate": "references_similar_experiment",
+      "object": {
+        "value_type": "reference",
+        "value": "高温条件下相似杂质峰",
+        "reference_id": "EXP-HIST-009",
+        "normalized_text": "历史失败案例可作为本轮风险判断的复用证据",
+        "raw_text": "EXP-HIST-009 在高温条件下出现过相似杂质峰"
+      },
+      "scope": {
+        "type": "project",
+        "description": "跨实验失败案例复用"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-006",
+        "speaker_id": "SPEAKER-04",
+        "start_ms": 92000,
+        "end_ms": 106000,
+        "quote": "历史失败案例 EXP-HIST-009 在高温条件下出现过相似杂质峰，建议检索复用。",
+        "quote_hash": "sha256:a9fcaa329de794de31b54b6902b592ba306c96997aeae1c5b634635d7dbdcf30",
+        "source_url": null
+      },
+      "confidence": 0.84,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-006:insight:references_similar_experiment:7",
+      "flags": [
+        "possible_duplicate_failure"
+      ],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-008",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "task",
+      "subject_id": "TASK-DEMO-002-ASR-DATE-REVIEW",
+      "predicate": "assigns_action",
+      "object": {
+        "value_type": "text",
+        "value": "复核截止日期与 ASR 年份异常",
+        "action_text": "复核截止日期，确认飞书 ASR 是否将 2026 识别成 2020",
+        "assignee_id": "USER-DEMO-MANAGER",
+        "due_at": "2026-07-18T17:00:00+08:00",
+        "raw_text": "今天下午五点前复核截止日期"
+      },
+      "scope": {
+        "type": "experiment",
+        "description": "会后审阅任务"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-007",
+        "speaker_id": "SPEAKER-01",
+        "start_ms": 108000,
+        "end_ms": 126000,
+        "quote": "会后今天下午五点前复核截止日期，飞书 ASR 可能把 2026 识别成 2020。",
+        "quote_hash": "sha256:3abf3655240864fc5292785c54556cd3608284eab75c5497fedce5cf815602c7",
+        "source_url": null
+      },
+      "confidence": 0.8,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-007:task:assigns_action:8",
+      "flags": [
+        "relative_time",
+        "needs_domain_review"
+      ],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    },
+    {
+      "schema_version": "1.0.0",
+      "claim_id": "CLM-DEMO-002-009",
+      "meeting_id": "MTG-DEMO-002",
+      "experiment_id": "EXP-DEMO-002",
+      "claim_type": "controversy",
+      "subject_id": "CONT-DEMO-002-CRYSTAL-B",
+      "predicate": "records_unresolved_option",
+      "object": {
+        "value_type": "text",
+        "value": "晶型筛选 B 方案未形成结论",
+        "normalized_text": "晶型筛选 B 方案仍处于待评审状态",
+        "raw_text": "晶型筛选 B 方案这次没有形成结论"
+      },
+      "scope": {
+        "type": "experiment",
+        "description": "晶型筛选方案评审"
+      },
+      "source": {
+        "system": "feishu_minutes",
+        "meeting_id": "MTG-DEMO-002",
+        "utterance_id": "UTT-DEMO-002-008",
+        "speaker_id": "SPEAKER-03",
+        "start_ms": 128000,
+        "end_ms": 144000,
+        "quote": "关于晶型筛选 B 方案这次没有形成结论，下次评审再决定。",
+        "quote_hash": "sha256:99a9e5a0f1ba6f68211d0f14a107ffa78644227aa6d17f940dc048442ed8863e",
+        "source_url": null
+      },
+      "confidence": 0.78,
+      "verification_status": "IN_REVIEW",
+      "data_origin": "deidentified",
+      "idempotency_key": "MTG-DEMO-002:rule-extractor-0.1.0:UTT-DEMO-002-008:controversy:records_unresolved_option:9",
+      "flags": [
+        "unresolved_decision"
+      ],
+      "relationships": [],
+      "versions": {
+        "extractor": "rule-extractor-0.1.0",
+        "prompt": "none-rule-based-0.1.0",
+        "ontology": "xtalloop-core-0.1.0"
+      },
+      "review": {
+        "decision": "pending",
+        "reviewed_by": null,
+        "reviewed_at": null,
+        "notes": "Rule-based draft. Human review is required before publication or writeback."
+      },
+      "created_at": "2026-07-18T12:05:00+08:00"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+.xtalloop-card {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--background-secondary);
+}
+
+.xtalloop-status {
+  color: var(--text-accent);
+  font-weight: 600;
+}
